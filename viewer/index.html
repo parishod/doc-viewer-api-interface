@@ -9,41 +9,52 @@
 		<!-- build:css mfb.css -->
 		<link href="../dist/mfb.css" rel="stylesheet">
 		<!-- endbuild -->
+        <script src="../dist/mfb.min.js"></script>
 		
 	</head>
 
 	<body>
 		<div id="document-viewing-frame"></div>
+
+        <ul id="menu" class="mfb-component--br mfb-zoomin" data-mfb-toggle="hover">
+            <li class="mfb-component__wrap">
+                <!-- Manu button-->
+                <a href="#" data-mfb-label="Menu" class="mfb-component__button--main">
+                    <i class="mfb-component__main-icon--resting fa fa-plus fa-2x"></i>
+                    <!--<i class="mfb-component__main-icon--resting ion-plus-round"></i>-->
+                    <i class="mfb-component__main-icon--active ion-close-round"></i>
+                </a>
+                <!-- Define as many buttons as required -->
+                <ul class="mfb-component__list">
+                    <li>
+                        <a href="https://github.com/nobitagit/material-floating-button/" data-mfb-label="Settings" class="mfb-component__button--child">
+                            <i class="mfb-component__child-icon ion-social-github"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/nobitagit" data-mfb-label="Feedback" class="mfb-component__button--child">
+                            <i class="mfb-component__child-icon ion-social-octocat"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://twitter.com/share?text=Check this material floating button component!&url=http://nobitagit.github.io/material-floating-button/&hashtags=material,design,button,css"
+                           data-mfb-label="Share" class="mfb-component__button--child">
+                            <i class="mfb-component__child-icon ion-social-twitter"></i>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+              integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
 		<script src="../libs/doc-viewer-utils.js"></script>
 		<script src="../js/main.js"></script>
-		
-		<ul id="menu" class="mfb-component--br mfb-zoomin" data-mfb-toggle="hover">
-			<li class="mfb-component__wrap">
-				<!-- Manu button-->
-				<a href="#" data-mfb-label="Menu" class="mfb-component__button--main">
-					<i class="mfb-component__main-icon--resting ion-plus-round"></i>
-					<i class="mfb-component__main-icon--active ion-close-round"></i>
-				</a>
-				<!-- Define as many buttons as required -->
-				<ul class="mfb-component__list">
-					<li>
-						<a href="https://github.com/nobitagit/material-floating-button/" data-mfb-label="Settings" class="mfb-component__button--child">
-							<i class="mfb-component__child-icon ion-social-github"></i>
-						</a>
-					</li>
-					<li>
-						<a href="https://github.com/nobitagit" data-mfb-label="Feedback" class="mfb-component__button--child">
-							<i class="mfb-component__child-icon ion-social-octocat"></i>
-						</a>
-					</li>
-					<li>
-						<a href="http://twitter.com/share?text=Check this material floating button component!&url=http://nobitagit.github.io/material-floating-button/&hashtags=material,design,button,css"
-							data-mfb-label="Share" class="mfb-component__button--child">
-							<i class="mfb-component__child-icon ion-social-twitter"></i>
-						</a>
-					</li>
-				</ul>
-			</li>
-		</ul>		
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+                integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+                crossorigin="anonymous"></script>
 	</body>
 </html>

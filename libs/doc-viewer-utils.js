@@ -2,6 +2,7 @@
  * Created by Deekshith Allamaneni on 1/25/16.
  * Copyright parishod.com 2016
  */
+"use strict";
 
 function getVar(name)
 {

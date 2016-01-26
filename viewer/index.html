@@ -6,6 +6,7 @@
 
 <body>
 	<div id="marker"></div>
+	<script src="../libs/doc-viewer-utils.js"></script>
 	<script type="text/javascript">
 		var ifrm = document.createElement('iframe');
 		ifrm.setAttribute('id', 'ifrm'); // assign an id
@@ -19,7 +20,7 @@
 		el.parentNode.insertBefore(ifrm, el);
 		
 		// assign url
-		ifrm.setAttribute('src', 'https://docs.google.com/viewer?url=http://www.snee.com/xml/xslt/sample.doc&embedded=true&chrome=true&dov=1');
+		ifrm.setAttribute('src', 'https://docs.google.com/viewer?url='+getVar("url")+'&embedded=true&chrome=true&dov=1');
 
 		document.getElementsByName('ifrm')[0].onload = function(){
 			document.title = window.frames.ifrm.document.title;

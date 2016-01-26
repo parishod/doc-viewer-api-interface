@@ -6,17 +6,17 @@
 
 function getVar(name)
 {
-    get_string = document.location.search;
-    return_value = '';
+    var get_string = document.location.search;
+    var return_value = '';
     do
     { //This loop is made to catch all instances of any get variable.
-        name_index = get_string.indexOf(name + '=');
+        var name_index = get_string.indexOf(name + '=');
         if(name_index != -1)
         {
             get_string = get_string.substr(name_index + name.length + 1, get_string.length - name_index);
-            end_of_value = get_string.indexOf('&');
+            var end_of_value = get_string.indexOf('&');
             if(end_of_value != -1)
-                value = get_string.substr(0, end_of_value);
+                var value = get_string.substr(0, end_of_value);
             else
                 value = get_string;
 
@@ -28,7 +28,7 @@ function getVar(name)
     } while(name_index != -1);
 
     //Restores all the blank spaces.
-    space = return_value.indexOf('+');
+    var space = return_value.indexOf('+');
     while(space != -1)
     {
         return_value = return_value.substr(0, space) + ' ' +

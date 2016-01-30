@@ -107,3 +107,9 @@ function getVar(name) {
 
     return (return_value);
 }
+
+//To assign the current url to download id on download button click
+function downloadListener(){
+	document.getElementById('downloadID').value=getVar("url");
+	console.log("Download Url: ", document.getElementById('downloadID').value);
+}

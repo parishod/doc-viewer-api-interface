@@ -2,7 +2,10 @@
 <html>
 <head>
     <title>Load iFrame</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="description" content="">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link href='http://fonts.googleapis.com/css?family=Raleway:100,200,300,400' rel='stylesheet' type='text/css'>
     
@@ -10,7 +13,7 @@
     <link href="../libs/dist/mfb.css" rel="stylesheet">
     <!-- endbuild -->
     
-	<!-- Required for mondal template code -->
+	<!-- Required for modal template code -->
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 	
 </head>
@@ -29,7 +32,7 @@
 			<!-- Define as many buttons as required -->
 			<ul class="mfb-component__list">
 				<li>
-					<a href="https://github.com/nobitagit/material-floating-button/" data-mfb-label="Settings" class="mfb-component__button--child">
+					<a href="#" data-mfb-label="Settings" class="mfb-component__button--child">
 						<i class="mfb-component__child-icon ion-android-settings"></i>
 					</a>
 				</li>
@@ -49,44 +52,45 @@
 	</ul>
 	
 	<!-- Modal -->
-	<div class = "modal fade" id = "shareModal" tabindex = "-1" role = "dialog" 
-	   aria-labelledby = "myModalLabel" aria-hidden = "true">
+	<div class="modal fade" id="shareModal" tabindex="-1" role="dialog" 
+	   aria-labelledby="myModalLabel" aria-hidden="true">
 	   
-	   <div class = "modal-dialog">
-		  <div class = "modal-content">
+	   <div class="modal-dialog">
+		  <div class="modal-content">
 			 
-			<div class = "modal-header">
-				<button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					  &times;
 				</button>
 				
-				<h4 class = "modal-title" id = "myModalLabel">
+				<h4 class="modal-title" id="myModalLabel">
 				  Share via
 				</h4>
 			</div>
 			 
-			<div class = "modal-body">
-				<li>
-					<a href="https://github.com/nobitagit/material-floating-button/" data-mfb-label="Settings" class="mfb-component__button--child">
-						<i class="mfb-component__child-icon ion-android-settings"></i>
+			<div class="modal-body">
+				<div class="row">
+				  <div class="col-sm-3">
+					<a id="facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://deap.co/2016/01/29/how-bad-products-survive/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" data-mfb-label="facebook" class="mfb-component__button--child">
+						<i class="mfb-component__child-icon ion-social-facebook">Facebook</i>
 					</a>
-				</li>
-				<li>
-					<a id="downloadID" href="#" onclick="downloadListener()" data-mfb-label="Download" class="mfb-component__button--child">
-						<i class="mfb-component__child-icon ion-android-download"></i>
+					
+				  </div>
+				  <div class="col-sm-3">
+					<a id="twitter" href="http://twitter.com/share?text=text goes here&url=http://url goes here&hashtags=hashtag1,hashtag2,hashtag3" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" data-mfb-label="Settings" class="mfb-component__button--child">
+						<i class="mfb-component__child-icon ion-social-twitter">Twitter</i>
 					</a>
-				</li>
-				<li>
-					<a id="shareID" data-toggle="modal" data-target="#shareModal"
-					   data-mfb-label="Share" class="mfb-component__button--child">
-						<i class="mfb-component__child-icon ion-android-share-alt"></i>
+				  </div>
+				  <div class="col-sm-3">
+					<a id="googleplus" href="https://plus.google.com/share?url=http://deap.co/2016/01/29/how-bad-products-survive/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" data-mfb-label="Settings" class="mfb-component__button--child">
+						<i class="mfb-component__child-icon ion-social-googleplus">Googleplus</i>
 					</a>
-				</li>
-				
+				  </div>
+				</div>							
 			</div>
 			 
-			<div class = "modal-footer">
-				<button type = "button" class = "btn btn-default" data-dismiss = "modal">
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">
 				   Close
 				</button>
 			</div>

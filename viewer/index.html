@@ -47,24 +47,23 @@
 			<!-- Manu button-->
 			<a href="#" data-mfb-label="Menu" class="mfb-component__button--main">
 				<i class="mfb-component__main-icon--resting fa fa-navicon fa-fw"></i>
-				<!--<i class="mfb-component__main-icon--resting ion-plus-round"></i>-->
 				<i class="mfb-component__main-icon--active fa fa-close fa-fw"></i>
 			</a>
 			<!-- Define as many buttons as required -->
 			<ul class="mfb-component__list">
 				<li>
-					<a href="#" data-mfb-label="Settings" class="mfb-component__button--child">
+					<a id="floating-menu-main-settings-id" href="#" data-mfb-label="Settings" class="mfb-component__button--child">
 						<i class="mfb-component__child-icon fa fa-cog fa-fw"></i>
 					</a>
 				</li>
 				<li>
-					<a id="downloadID" href="#" onclick="downloadListener()" data-mfb-label="Download" class="mfb-component__button--child">
+					<a id="floating-menu-main-download-id" href="#" onclick="downloadListener()" data-mfb-label="Download" class="mfb-component__button--child">
 						<i class="mfb-component__child-icon fa fa-download fa-fw"></i>
 					</a>
 				</li>
 				<li>
-					<a id="shareID" data-toggle="modal" data-target="#shareModal"
-					   data-mfb-label="Share" class="mfb-component__button--child">
+					<a id="floating-menu-main-social-share-id" data-toggle="modal" data-target="#shareModal"
+                       data-mfb-label="Share" class="mfb-component__button--child">
 						<i class="mfb-component__child-icon fa fa-share-alt fa-fw"></i>
 					</a>
 				</li>
@@ -92,19 +91,25 @@
 			<div class="modal-body">
 				<div class="row">
 				  <div class="col-xs-4 col-sm-4 col-md-2  col-md-offset-3 col-lg-2 col-lg-offset-3">
-					<a class="facebook-brand-color" id="social-share-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://deap.co/2016/01/29/how-bad-products-survive/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-                        <i class="fa fa-facebook-square fa-5x"></i>
-					</a>
+                      <span class="hint--top" data-hint="Facebook">
+					    <a class="facebook-brand-color" id="social-share-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://deap.co/2016/01/29/how-bad-products-survive/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                            <i class="fa fa-facebook-square fa-5x"></i>
+					    </a>
+                      </span>
 				  </div>
 				  <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-					<a class="twitter-brand-color" id="social-share-twitter" href="http://twitter.com/share?text=text goes here&url=http://url goes here&hashtags=hashtag1,hashtag2,hashtag3" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
-                        <i class="fa fa-twitter-square fa-5x"></i>
-					</a>
+                      <span class="hint--top" data-hint="Twitter">
+					    <a class="twitter-brand-color" id="social-share-twitter" href="http://twitter.com/share?text=text goes here&url=http://url goes here&hashtags=hashtag1,hashtag2,hashtag3" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                            <i class="fa fa-twitter-square fa-5x"></i>
+					    </a>
+                      </span>
 				  </div>
 				  <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-					<a class="googleplus-brand-color" id="social-share-googleplus" href="https://plus.google.com/share?url=http://deap.co/2016/01/29/how-bad-products-survive/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-                        <i class="fa fa-google-plus-square fa-5x"></i>
-					</a>
+                      <span class="hint--top" data-hint="Google Plus">
+					    <a class="googleplus-brand-color" id="social-share-googleplus" href="https://plus.google.com/share?url=http://deap.co/2016/01/29/how-bad-products-survive/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                            <i class="fa fa-google-plus-square fa-5x"></i>
+					    </a>
+                      </span>
 				  </div>
 				</div>
 			</div>
@@ -115,6 +120,9 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- Base hint.css. CSS Tooltip library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.0.0/hint.base.min.css">
 
     <!-- Loading Fontawesome icons -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">

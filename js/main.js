@@ -14,6 +14,7 @@ function loadUrlInIframe(fileUrl, elementIdToAppend) {
 
     // to place before another page element
     var el = document.getElementById(elementIdToAppend);
+    el.innerHTML = ""; // Empty any previous contents of that element
     el.parentNode.insertBefore(ifrm, el);
 
     // assign url

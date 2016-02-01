@@ -113,3 +113,18 @@ function downloadListener(){
 	document.getElementById('downloadID').value=getVar("url");
 	console.log("Download Url: ", document.getElementById('downloadID').value);
 }
+
+//To assign the current url to download id on download button click
+function shareListener(){
+	//var shareElement = document.getElementById('shareID');
+	console.log("Download Url: shareListener CAlled");
+	
+	var xhr= new XMLHttpRequest();
+	xhr.open('GET', 'https://dl.dropboxusercontent.com/u/39352517/inline.html', true);
+	xhr.onreadystatechange= function() {
+		if (this.readyState!==4) console.log("Download Url: error"); return;
+		if (this.status!==200) console.log("Download Url: error11"); return; // or whatever error handling you want
+		document.getElementById('inline-frame').innerHTML= this.responseText;
+	};
+	xhr.send();
+}

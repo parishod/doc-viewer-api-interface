@@ -5,20 +5,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link href='http://fonts.googleapis.com/css?family=Raleway:100,200,300,400' rel='stylesheet' type='text/css'>
-    <!-- build:js modernizr.touch.js -->
-    <script src="../libs/dist/lib/modernizr.touch.js"></script>
-    <!-- endbuild -->
-
+    
     <!-- build:css mfb.css -->
     <link href="../libs/dist/mfb.css" rel="stylesheet">
     <!-- endbuild -->
-    <script src="../libs/dist/mfb.min.js"></script>
-
+    
+	<!-- Required for mondal template code -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	
 </head>
 
 <body>
 	<div id="document-viewing-frame"></div>
-
+	<div id="inline-frame"></div>
 	<ul id="menu" class="mfb-component--br mfb-zoomin" data-mfb-toggle="hover">
 		<li class="mfb-component__wrap">
 			<!-- Manu button-->
@@ -40,7 +39,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="http://twitter.com/share?text=Check this material floating button component!&url=http://nobitagit.github.io/material-floating-button/&hashtags=material,design,button,css"
+					<a id="shareID" data-toggle="modal" data-target="#shareModal"
 					   data-mfb-label="Share" class="mfb-component__button--child">
 						<i class="mfb-component__child-icon ion-android-share-alt"></i>
 					</a>
@@ -48,11 +47,70 @@
 			</ul>
 		</li>
 	</ul>
+	
+	<!-- Modal -->
+	<div class = "modal fade" id = "shareModal" tabindex = "-1" role = "dialog" 
+	   aria-labelledby = "myModalLabel" aria-hidden = "true">
+	   
+	   <div class = "modal-dialog">
+		  <div class = "modal-content">
+			 
+			<div class = "modal-header">
+				<button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
+					  &times;
+				</button>
+				
+				<h4 class = "modal-title" id = "myModalLabel">
+				  Share via
+				</h4>
+			</div>
+			 
+			<div class = "modal-body">
+				<li>
+					<a href="https://github.com/nobitagit/material-floating-button/" data-mfb-label="Settings" class="mfb-component__button--child">
+						<i class="mfb-component__child-icon ion-android-settings"></i>
+					</a>
+				</li>
+				<li>
+					<a id="downloadID" href="#" onclick="downloadListener()" data-mfb-label="Download" class="mfb-component__button--child">
+						<i class="mfb-component__child-icon ion-android-download"></i>
+					</a>
+				</li>
+				<li>
+					<a id="shareID" data-toggle="modal" data-target="#shareModal"
+					   data-mfb-label="Share" class="mfb-component__button--child">
+						<i class="mfb-component__child-icon ion-android-share-alt"></i>
+					</a>
+				</li>
+				
+			</div>
+			 
+			<div class = "modal-footer">
+				<button type = "button" class = "btn btn-default" data-dismiss = "modal">
+				   Close
+				</button>
+			</div>
+			 
+		  </div><!-- /.modal-content -->
+	   </div><!-- /.modal-dialog -->
+	  
+	</div><!-- /.modal -->
 
+	<!-- To Launch the iframe for the doc trying to open -->
 	<script src="../libs/doc-viewer-utils.js"></script>
 	<script src="../js/main.js"></script>
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> -->
-        
+	
+	<!-- Required for mondal template code -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	
+    <!-- build:js modernizr.touch.js -->
+    <script src="../libs/dist/lib/modernizr.touch.js"></script>
+    <!-- endbuild -->
+	<!-- build:js mfb.min.js -->
+	<script src="../libs/dist/mfb.min.js"></script>
+	<!-- endbuild -->
+    
 	</body>
 
 </html>

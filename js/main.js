@@ -26,10 +26,10 @@ function loadUrlInIframe(fileUrl, elementIdToAppend) {
 
 loadUrlInIframe(getVar("url"), 'document-viewing-frame');
 
-/*loadFile("../config/services.json", "text").then(function(response) {
+loadFile("https://dl.dropboxusercontent.com/u/39352517/services.json", "json").then(function(response) {
         // your code here
 		console.log("Response : " , response);
 }, function(Error) {
     console.log(Error);
-});*/
+});
 

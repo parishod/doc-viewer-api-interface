@@ -19,10 +19,6 @@ function loadUrlInIframe(fileUrl, elementIdToAppend) {
 
     // assign url
     ifrm.setAttribute('src', 'https://docs.google.com/viewer?url='+fileUrl+'&embedded=true&chrome=true&dov=1');
-
-    document.getElementsByName('ifrm')[0].onload = function(){
-        document.title = window.frames.ifrm.document.title;
-    };
 }
 
 let givenFileUrl = (typeof(getVar("url")) !== "undefined")? getVar("url"): "";
@@ -39,4 +35,3 @@ loadFile("https://dl.dropboxusercontent.com/u/39352517/services.json", "json").t
 }, function(Error) {
     console.log(Error);
 });
-

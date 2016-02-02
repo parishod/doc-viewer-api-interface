@@ -108,8 +108,13 @@ function getVar(name) {
     return (return_value);
 }
 
-//To assign the current url to download id on download button click
-function downloadListener(){
-	document.getElementById('downloadID').value=getVar("url");
-	console.log("Download Url: ", document.getElementById('downloadID').value);
+function assignAttrToDocumentElementById(attribute, attributeValue, elementId) {
+    if( typeof(attribute) === "string"
+        && typeof(attributeValue) === "string"
+        && typeof(elementId) === "string") {
+        var thisElement = document.getElementById(elementId);
+        if(thisElement != null) {
+            thisElement.setAttribute(attribute, attributeValue);
+        }
+    }
 }

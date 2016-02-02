@@ -25,7 +25,13 @@ function loadUrlInIframe(fileUrl, elementIdToAppend) {
     };
 }
 
-loadUrlInIframe(getVar("url"), 'document-viewing-frame');
+let givenFileUrl = (typeof(getVar("url")) !== "undefined")? getVar("url"): "";
+
+// Loading the URL passed via API in Iframe
+loadUrlInIframe(givenFileUrl, 'document-viewing-frame');
+
+// Assigning Href to Download button in floating menu
+assignAttrToDocumentElementById("href", givenFileUrl, "floating-menu-main-download-id");
 
 loadFile("https://dl.dropboxusercontent.com/u/39352517/services.json", "json").then(function(response) {
         // your code here

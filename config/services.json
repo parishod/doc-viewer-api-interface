@@ -11,10 +11,7 @@
         "name":"Google Docs",
         "id":"google_docs",
         "is_supported":true,
-        "file_extensions":[
-          "ai",
-          "csv",
-          "doc",
+        "file_extensions":[ "ai", "csv", "doc",
           "docx",
           "dxf",
           "eps",

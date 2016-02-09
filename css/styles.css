@@ -10,3 +10,11 @@
 .googleplus-brand-color {
     color: #DD4B39;
 }
+
+.appear-on-hover {
+    opacity: 0.1;
+}
+
+.appear-on-hover:hover {
+    opacity: 1.0;
+}

@@ -38,20 +38,23 @@ loadFile("../config/user-preferences-default.json", "json").then(function(respon
 		//Read the extension from url
 		//var startIndex = givenFileUrl.lastIndexOf(".");
 		//var endIndex = givenFileUrl.length;
-		var cookiePref;
 		if(givenFileUrl.lastIndexOf("&filetype") == -1){ // If the given url doesn't contain filetype extract extension
 			//var ext = givenFileUrl.substr(startIndex+1, endIndex);
 			var extFromUrl = getFileExtension(givenFileUrl);
 			var prefService;
 			var i;
-			cookiePref = readCookie("userPref");
+			let cookiePref = readCookie("userPref");
 			console.log("Url Extension = " , extFromUrl);
 			if( cookiePref != null){
-				console.log("cooke Read: ", cookiePref);
+				console.log("Cookie Read:", decodeURIComponent(cookiePref));
 				//Replace %20 character with space.
 				//cookiePref = cookiePref.replace("%20", " ")	
 				//Read the preference for the given extension
-				var jsonFormatData = JSON.parse(cookiePref);
+				try {
+					var jsonFormatData = JSON.parse(decodeURIComponent(cookiePref));
+				} catch (err){
+					console.error("Error Parsing User Preferences Cookie data to JSON: ", err.message);
+				}
 				for(i=0; i<jsonFormatData.user_preferences.file_types.length; i++){
 					var tempExt = jsonFormatData.user_preferences.file_types[i].extension;
 					if(tempExt.localeCompare(extFromUrl) == 0){

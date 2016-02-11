@@ -55,13 +55,10 @@ loadFile("../config/user-preferences-default.json", "json").then(function(respon
 				} catch (err){
 					console.error("Error Parsing User Preferences Cookie data to JSON: ", err.message);
 				}
-				for(i=0; i<jsonFormatData.user_preferences.file_types.length; i++){
-					var tempExt = jsonFormatData.user_preferences.file_types[i].extension;
-					if(tempExt.localeCompare(extFromUrl) == 0){
-						prefService = jsonFormatData.user_preferences.file_types[i].preferred_service;
-						break;
-					}
-				}
+				let indexPreferredService = jsonFormatData.user_preferences.file_types
+					.findIndex( (thisFileTypeObj) => thisFileTypeObj.extension === extFromUrl );
+				prefService = jsonFormatData.user_preferences.file_types[indexPreferredService].preferred_service;
+				console.log("Preferred Service: ", prefService);
 			}
 			else{
 				//createCookie(ext,"Google Docs",10, "/");	
@@ -71,13 +68,9 @@ loadFile("../config/user-preferences-default.json", "json").then(function(respon
 				console.log("Created cookie : ",JSON.parse(readCookie("userPref")));
 				
 				//Read the default service
-				for(i=0; i<jsonData.user_preferences.file_types.length; i++){
-					var tempExt = jsonData.user_preferences.file_types[i].extension;
-					if(tempExt.localeCompare(extFromUrl) == 0){
-						prefService = jsonData.user_preferences.file_types[i].preferred_service;
-						break;
-					}
-				}
+				let indexPreferredService = jsonData.user_preferences.file_types
+					.findIndex( (thisFileTypeObj) => thisFileTypeObj.extension === extFromUrl );
+				prefService = jsonData.user_preferences.file_types[indexPreferredService].preferred_service;
 			}
 			// Loading the URL passed via API in Iframe
 			loadUrlInIframe(givenFileUrl, 'document-viewing-frame', extFromUrl);

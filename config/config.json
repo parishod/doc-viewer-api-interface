@@ -1,0 +1,66 @@
+{
+    "application" : {
+        "name" : "Viewer API",
+        "app_id" : "viewer-api@parishod.com",
+        "version" : "0.1"
+    },
+    "user_preferences" : {
+        "version" : "0.1",
+        "file_types" : [
+            {"extension" : "ai",    "preferred_service" : "google_docs"},
+            {"extension" : "csv",   "preferred_service" : "google_docs"},
+            {"extension" : "doc",   "preferred_service" : "google_docs"},
+            {"extension" : "docx",  "preferred_service" : "google_docs"},
+            {"extension" : "dxf",   "preferred_service" : "google_docs"},
+            {"extension" : "eps",   "preferred_service" : "google_docs"},
+            {"extension" : "odp",   "preferred_service" : "google_docs"},
+            {"extension" : "ods",   "preferred_service" : "google_docs"},
+            {"extension" : "odt",   "preferred_service" : "google_docs"},
+            {"extension" : "pages", "preferred_service" : "google_docs"},
+            {"extension" : "pdf",   "preferred_service" : "google_docs"},
+            {"extension" : "pps",   "preferred_service" : "google_docs"},
+            {"extension" : "ppt",   "preferred_service" : "google_docs"},
+            {"extension" : "pptx",  "preferred_service" : "google_docs"},
+            {"extension" : "ps",    "preferred_service" : "google_docs"},
+            {"extension" : "psd",   "preferred_service" : "google_docs"},
+            {"extension" : "rtf",   "preferred_service" : "google_docs"},
+            {"extension" : "sxc",   "preferred_service" : "google_docs"},
+            {"extension" : "sxi",   "preferred_service" : "google_docs"},
+            {"extension" : "sxw",   "preferred_service" : "google_docs"},
+            {"extension" : "tif",   "preferred_service" : "google_docs"},
+            {"extension" : "tiff",  "preferred_service" : "google_docs"},
+            {"extension" : "ttf",   "preferred_service" : "google_docs"},
+            {"extension" : "wpd",   "preferred_service" : "google_docs"},
+            {"extension" : "xls",   "preferred_service" : "google_docs"},
+            {"extension" : "xlsx",  "preferred_service" : "google_docs"},
+            {"extension" : "xps",   "preferred_service" : "google_docs"}
+        ],
+        "privacy" : {
+          "collect_stats" : false
+        }
+    },
+    "supported_services":[
+      {
+        "name":"Google Docs",
+        "id":"google_docs",
+        "is_supported":true,
+        "file_extensions":[ "ai", "csv", "doc", "docx", "dxf", "eps", "odp", "ods", "odt", "pages", "pdf", "pps", "ppt", "pptx", "ps", "psd", "rtf", "sxc", "sxi", "sxw", "tif", "tiff", "ttf", "wpd", "xls", "xlsx", "xps"],
+        "file_open_API":"https://docs.google.com/viewer?url={$file_url}&embedded=false&chrome=false&dov=1"
+      },
+      {
+        "name":"Microsoft Office Online",
+        "id":"mso_online",
+        "is_supported":true,
+        "file_extensions":["doc", "docx", "ppt", "pptx", "xls", "xlsx"],
+        "file_open_API":"https://view.officeapps.live.com/op/view.aspx?src={$file_url}"
+      },
+      {
+        "name":"rollApp",
+        "id":"roll_app",
+        "is_supported":true,
+        "file_extensions":["zip", "rar"],
+        "file_open_API":"https://www.rollapp.com/api/apps/open?file_url={$file_url}"
+      }
+    ]
+  
+}

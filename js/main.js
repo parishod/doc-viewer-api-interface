@@ -23,15 +23,15 @@ function loadUrlInIframe(fileUrl, elementIdToAppend, extension) {
 
 let givenFileUrl = (typeof(getVar("url")) !== "undefined")? getVar("url"): "";
 
-var jsonData;
+var userPrefJsonData;
 //Loading json file data
 loadFile("../config/user-preferences-default.json", "json").then(function(response) {
         // your code here
-		console.log("Response : " , response);
-		jsonData = response;
-		/*console.log("JsonData : ", jsonData.data.services[0].name);
-		console.log("JsonData : ", jsonData.data.services[0].file_extensions[0]);
-		console.log("JsonData : ", jsonData.data.services[0].file_open_API);*/
+		//console.log("Response : " , response);
+		userPrefJsonData = response;
+		/*console.log("JsonData : ", userPrefJsonData.data.services[0].name);
+		console.log("JsonData : ", userPrefJsonData.data.services[0].file_extensions[0]);
+		console.log("JsonData : ", userPrefJsonData.data.services[0].file_open_API);*/
 		
 		
 		//Read cookie, if exists open the dowcument with given preference else chose default and write to cookie.
@@ -43,17 +43,20 @@ loadFile("../config/user-preferences-default.json", "json").then(function(respon
 			var extFromUrl = getFileExtension(givenFileUrl);
 			var prefService;
 			var i;
-			let cookiePref = readCookie("userPref");
-			console.log("Url Extension = " , extFromUrl);
-			if( cookiePref != null){
-				console.log("Cookie Read:", decodeURIComponent(cookiePref));
+			
+            //let cookiePref = readCookie("userPref");
+            // Put the object into storage
+            let viewerUserPrefData = localStorage.getItem('viewer-user-pref');
+            //console.log("Url Extension = " , extFromUrl);
+			if( viewerUserPrefData != null){
+				//console.log("userpref data Read:", decodeURIComponent(viewerUserPrefData));
 				//Replace %20 character with space.
 				//cookiePref = cookiePref.replace("%20", " ")	
 				//Read the preference for the given extension
 				try {
-					var jsonFormatData = JSON.parse(decodeURIComponent(cookiePref));
+					var jsonFormatData = JSON.parse(decodeURIComponent(viewerUserPrefData));
 				} catch (err){
-					console.error("Error Parsing User Preferences Cookie data to JSON: ", err.message);
+					console.error("Error Parsing User Preferences data to JSON: ", err.message);
 				}
 				let indexPreferredService = jsonFormatData.user_preferences.file_types
 					.findIndex( (thisFileTypeObj) => thisFileTypeObj.extension === extFromUrl );
@@ -64,13 +67,14 @@ loadFile("../config/user-preferences-default.json", "json").then(function(respon
 				//createCookie(ext,"Google Docs",10, "/");	
 				//Just to verify if cookie is created successfully or not
 				//console.log(readCookie(ext));
-				createCookie("userPref", JSON.stringify(jsonData), 10, "/");	
-				console.log("Created cookie : ",JSON.parse(readCookie("userPref")));
+				//createCookie("userPref", JSON.stringify(userPrefJsonData), 10, "/");	
+                localStorage.setItem('viewer-user-pref', JSON.stringify(userPrefJsonData));
+				//console.log("userPref data read : ",JSON.parse(localStorage.getItem('viewer-user-pref')));
 				
 				//Read the default service
-				let indexPreferredService = jsonData.user_preferences.file_types
+				let indexPreferredService = userPrefJsonData.user_preferences.file_types
 					.findIndex( (thisFileTypeObj) => thisFileTypeObj.extension === extFromUrl );
-				prefService = jsonData.user_preferences.file_types[indexPreferredService].preferred_service;
+				prefService = userPrefJsonData.user_preferences.file_types[indexPreferredService].preferred_service;
 			}
 			// Loading the URL passed via API in Iframe
 			loadUrlInIframe(givenFileUrl, 'document-viewing-frame', extFromUrl);

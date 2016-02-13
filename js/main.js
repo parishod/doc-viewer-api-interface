@@ -11,8 +11,6 @@ function loadUrlInIframe(fileUrl, elementIdToAppend, preferedService, extension)
     ifrm.setAttribute('style', "border: 0; position:absolute; top:0; left:0; right:0; bottom:0; width:100%; height:100%;");
     ifrm.setAttribute('name', "ifrm");
 
-    //document.body.appendChild(ifrm); // to place at end of document
-
     // to place before another page element
     var el = document.getElementById(elementIdToAppend);
     el.innerHTML = ""; // Empty any previous contents of that element
@@ -26,17 +24,6 @@ function loadUrlInIframe(fileUrl, elementIdToAppend, preferedService, extension)
         ifrm.setAttribute('src', 'https://view.officeapps.live.com/op/view.aspx?src='+fileUrl);
     }
     else{
-        //console.log("JsonData : ", userPrefJsonData);
-        /*let indexPreferredService;
-        for (var key in userPrefJsonData.supported_services) {
-            if(userPrefJsonData.supported_services[key].id == preferedService){
-                indexPreferredService = userPrefJsonData.supported_services[key].file_open_API;
-                console.log("Required Api : ", indexPreferredService)
-                break;
-            }
-           console.log("pre service sent : ", preferedService) 
-           console.log("Required Api : ", userPrefJsonData.supported_services[key].id);
-        }*/
         let indexPreferredService = userPrefJsonData.supported_services
 					.findIndex( (thisFileTypeObj) => thisFileTypeObj.id === preferedService );
 		let reqAPI = userPrefJsonData.supported_services[indexPreferredService].file_open_API;
@@ -48,35 +35,17 @@ function loadUrlInIframe(fileUrl, elementIdToAppend, preferedService, extension)
 
 let givenFileUrl = (typeof(getVar("url")) !== "undefined")? getVar("url"): "";
 
-
 //Loading json file data
 loadFile("../config/config.json", "json").then(function(response) {
-        // your code here
-		//console.log("Response : " , response);
 		userPrefJsonData = response;
-		/*console.log("JsonData : ", userPrefJsonData.data.services[0].name);
-		console.log("JsonData : ", userPrefJsonData.data.services[0].file_extensions[0]);
-		console.log("JsonData : ", userPrefJsonData.data.services[0].file_open_API);*/
-		//console.log("JsonData : ", userPrefJsonData.supported_services[0].file_open_API)
-		
-		//Read cookie, if exists open the dowcument with given preference else chose default and write to cookie.
-		//Read the extension from url
-		//var startIndex = givenFileUrl.lastIndexOf(".");
-		//var endIndex = givenFileUrl.length;
 		if(givenFileUrl.lastIndexOf("&filetype") == -1){ // If the given url doesn't contain filetype extract extension
-			//var ext = givenFileUrl.substr(startIndex+1, endIndex);
 			var extFromUrl = getFileExtension(givenFileUrl);
 			var prefService;
-			var i;
-			
-            //let cookiePref = readCookie("userPref");
+
             // Put the object into storage
             let viewerUserPrefData = localStorage.getItem('viewer-user-pref');
-            //console.log("Url Extension = " , extFromUrl);
 			if( viewerUserPrefData != null){
-				//console.log("userpref data Read:", decodeURIComponent(viewerUserPrefData));
-				//Replace %20 character with space.
-				//cookiePref = cookiePref.replace("%20", " ")	
+
 				//Read the preference for the given extension
 				try {
 					var jsonFormatData = JSON.parse(decodeURIComponent(viewerUserPrefData));
@@ -89,12 +58,8 @@ loadFile("../config/config.json", "json").then(function(response) {
 				console.log("Preferred Service: ", prefService);
 			}
 			else{
-				//createCookie(ext,"Google Docs",10, "/");	
 				//Just to verify if cookie is created successfully or not
-				//console.log(readCookie(ext));
-				//createCookie("userPref", JSON.stringify(userPrefJsonData), 10, "/");	
                 localStorage.setItem('viewer-user-pref', JSON.stringify(userPrefJsonData));
-				//console.log("userPref data read : ",JSON.parse(localStorage.getItem('viewer-user-pref')));
 				
 				//Read the default service
 				let indexPreferredService = userPrefJsonData.user_preferences.file_types

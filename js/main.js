@@ -35,11 +35,17 @@ function loadUrlInIframe(fileUrl, elementIdToAppend, preferedService, extension)
     }
 }
 
-let givenFileUrl = (typeof(getUrlParameterByName("url", document.location)) !== "undefined") ? getUrlParameterByName("url", document.location) : "";
 
 //Loading json file data
 loadFile("../config/config.json", "json").then(function (response) {
     userPrefJsonData = response;
+    let givenFileUrl = (getUrlParameterByName("url", document.location) === null)
+        ? getUrlParameterByName("url", document.location)
+        : "";
+
+    // Assigning Href to Download button in floating menu
+    assignAttrToDocumentElementById("href", givenFileUrl, "floating-menu-main-download-id");
+
     let fileExtensionOfUrl = (getUrlParameterByName("filetype", document.location) !== null)
         ? getUrlParameterByName("filetype", document.location)
         : getFileExtension(givenFileUrl);
@@ -48,7 +54,6 @@ loadFile("../config/config.json", "json").then(function (response) {
     // Put the object into storage
     let viewerUserPrefData = localStorage.getItem('viewer-user-pref');
     if (viewerUserPrefData != null) {
-
         //Read the preference for the given extension
         try {
             var jsonFormatData = JSON.parse(decodeURIComponent(viewerUserPrefData));
@@ -75,7 +80,3 @@ loadFile("../config/config.json", "json").then(function (response) {
 }, function (Error) {
     console.error(Error);
 });
-
-
-// Assigning Href to Download button in floating menu
-assignAttrToDocumentElementById("href", givenFileUrl, "floating-menu-main-download-id");

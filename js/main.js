@@ -28,7 +28,7 @@ function loadUrlInIframe(fileUrl, elementIdToAppend, preferedService, extension)
 					.findIndex( (thisFileTypeObj) => thisFileTypeObj.id === preferedService );
 		let reqAPI = userPrefJsonData.supported_services[indexPreferredService].file_open_API;
 		let reqUrl = reqAPI.replace('{$file_url}', '' + fileUrl) 
-        console.log("Required url : ", reqUrl)
+        console.log("Required url : ", reqUrl) // DEBUG
         ifrm.setAttribute('src', reqUrl);
     }
 }
@@ -38,7 +38,7 @@ let givenFileUrl = (typeof(getUrlParameterByName("url", document.location)) !== 
 //Loading json file data
 loadFile("../config/config.json", "json").then(function(response) {
 		userPrefJsonData = response;
-		if(getUrlParameters("filetype", givenFileUrl) === ""){ // If the given url doesn't contain filetype extract extension
+		if(getUrlParameterByName("filetype", document.location) === ""){ // If the given url doesn't contain filetype extract extension
 			var extFromUrl = getFileExtension(givenFileUrl);
 			var prefService;
 
@@ -65,12 +65,12 @@ loadFile("../config/config.json", "json").then(function(response) {
 				let indexPreferredService = userPrefJsonData.user_preferences.file_types
 					.findIndex( (thisFileTypeObj) => thisFileTypeObj.extension === extFromUrl );
 				prefService = userPrefJsonData.user_preferences.file_types[indexPreferredService].preferred_service;
-                console.log("Preferred Service 1 : ", prefService);
+                console.log("Preferred Service 1 : ", prefService); // DEBUG
 			}
 			// Loading the URL passed via API in Iframe
 			loadUrlInIframe(givenFileUrl, 'document-viewing-frame', prefService, extFromUrl);
 		}else{
-			console.log("File type found ");
+			console.error("File type found ");
 			// Loading the URL passed via API in Iframe
 			loadUrlInIframe(givenFileUrl, 'document-viewing-frame');
 		}

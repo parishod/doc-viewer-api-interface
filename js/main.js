@@ -75,7 +75,7 @@ loadFile("../config/config.json", "json").then(function(response) {
 			loadUrlInIframe(givenFileUrl, 'document-viewing-frame');
 		}
 }, function(Error) {
-    console.log(Error);
+    console.error(Error);
 });
 
 

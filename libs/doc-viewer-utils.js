@@ -76,41 +76,29 @@ function loadTextFile(url) {
     });
 }
 
-function getUrlParameterByName(paramName, url) {
-    url = (typeof url !== "undefined" || url !== null)
-        ? url
-        : document.location;
+function getAllUrlParameters(url) {
     url = url.toString();
-    var get_string = url.substring(url.indexOf("?"));
-    var return_value = '';
-    do
-    { //This loop is made to catch all instances of any get variable.
-        var name_index = get_string.indexOf(paramName + '=');
-        if (name_index != -1) {
-            get_string = get_string.substr(name_index + paramName.length + 1, get_string.length - name_index);
-            var end_of_value = get_string.indexOf('&');
-            if (end_of_value != -1)
-                var value = get_string.substr(0, end_of_value);
-            else
-                value = get_string;
-
-            if (return_value == '' || value == '')
-                return_value += value;
-            else
-                return_value += ', ' + value;
-        }
-    } while (name_index != -1);
-
-    //Restores all the blank spaces.
-    var space = return_value.indexOf('+');
-    while (space != -1) {
-        return_value = return_value.substr(0, space) + ' ' +
-            return_value.substr(space + 1, return_value.length);
-        space = return_value.indexOf('+');
-    }
-
-    return (return_value);
+    let searchString = url.substring(url.indexOf("?")!==-1?url.indexOf("?")+1:url.length);
+    // console.log("searchString:", searchString); // DEBUG
+    if(searchString.length <=0) {return null;}
+    return searchString.split("&")
+        .map((keyValString) => {
+            let keyValArr = keyValString.split("=");
+            if(keyValArr.length != 2){return null;}
+            return {"key":keyValArr[0], "value":keyValArr[1]};
+        })
+        .filter((thisElement) => thisElement !== null);
 }
+
+
+function getUrlParameterByName(paramName, url) {
+    let allUrlParametersArr = getAllUrlParameters(url);
+    let reqPramIndex = allUrlParametersArr.findIndex((eachParam) => eachParam.key === paramName);
+    return (reqPramIndex !== -1)
+        ? allUrlParametersArr[reqPramIndex].value
+        : null;
+}
+
 
 function assignAttrToDocumentElementById(attribute, attributeValue, elementId) {
     if( typeof(attribute) === "string"

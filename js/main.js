@@ -2,8 +2,9 @@
  * Copyright parishod.com 2016
  */
 "use strict";
+var userPrefJsonData;
 
-function loadUrlInIframe(fileUrl, elementIdToAppend, extension) {
+function loadUrlInIframe(fileUrl, elementIdToAppend, preferedService) {
     if(fileUrl === "" || typeof fileUrl == "undefined" || fileUrl === null) {return;}
     var ifrm = document.createElement('iframe');
     ifrm.setAttribute('id', 'ifrm'); // assign an id
@@ -16,23 +17,44 @@ function loadUrlInIframe(fileUrl, elementIdToAppend, extension) {
     var el = document.getElementById(elementIdToAppend);
     el.innerHTML = ""; // Empty any previous contents of that element
     el.parentNode.insertBefore(ifrm, el);
-
+    
     // assign url
-    ifrm.setAttribute('src', 'https://view.officeapps.live.com/op/view.aspx?src='+fileUrl);
+    if(preferedService == null){
+        ifrm.setAttribute('src', 'https://view.officeapps.live.com/op/view.aspx?src='+fileUrl);
+    }
+    else{
+        //console.log("JsonData : ", userPrefJsonData);
+        /*let indexPreferredService;
+        for (var key in userPrefJsonData.supported_services) {
+            if(userPrefJsonData.supported_services[key].id == preferedService){
+                indexPreferredService = userPrefJsonData.supported_services[key].file_open_API;
+                console.log("Required Api : ", indexPreferredService)
+                break;
+            }
+           console.log("pre service sent : ", preferedService) 
+           console.log("Required Api : ", userPrefJsonData.supported_services[key].id);
+        }*/
+        let indexPreferredService = userPrefJsonData.supported_services
+					.findIndex( (thisFileTypeObj) => thisFileTypeObj.id === preferedService );
+		let reqAPI = userPrefJsonData.supported_services[indexPreferredService].file_open_API;
+		let reqUrl = reqAPI.replace('{$file_url}', '' + fileUrl)
+        console.log("Required url : ", reqUrl)
+        ifrm.setAttribute('src', reqUrl);
+    }
 }
 
 let givenFileUrl = (typeof(getVar("url")) !== "undefined")? getVar("url"): "";
 
-var userPrefJsonData;
+
 //Loading json file data
-loadFile("../config/user-preferences-default.json", "json").then(function(response) {
+loadFile("../config/config.json", "json").then(function(response) {
         // your code here
 		//console.log("Response : " , response);
 		userPrefJsonData = response;
 		/*console.log("JsonData : ", userPrefJsonData.data.services[0].name);
 		console.log("JsonData : ", userPrefJsonData.data.services[0].file_extensions[0]);
 		console.log("JsonData : ", userPrefJsonData.data.services[0].file_open_API);*/
-		
+		//console.log("JsonData : ", userPrefJsonData.supported_services[0].file_open_API)
 		
 		//Read cookie, if exists open the dowcument with given preference else chose default and write to cookie.
 		//Read the extension from url
@@ -75,9 +97,10 @@ loadFile("../config/user-preferences-default.json", "json").then(function(respon
 				let indexPreferredService = userPrefJsonData.user_preferences.file_types
 					.findIndex( (thisFileTypeObj) => thisFileTypeObj.extension === extFromUrl );
 				prefService = userPrefJsonData.user_preferences.file_types[indexPreferredService].preferred_service;
+                console.log("Preferred Service 1 : ", prefService);
 			}
 			// Loading the URL passed via API in Iframe
-			loadUrlInIframe(givenFileUrl, 'document-viewing-frame', extFromUrl);
+			loadUrlInIframe(givenFileUrl, 'document-viewing-frame', prefService);
 		}else{
 			console.log("File type found ");
 			// Loading the URL passed via API in Iframe

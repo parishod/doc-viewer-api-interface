@@ -45,7 +45,7 @@
         "id":"google_docs",
         "is_supported":true,
         "file_extensions":[ "ai", "csv", "doc", "docx", "dxf", "eps", "odp", "ods", "odt", "pages", "pdf", "pps", "ppt", "pptx", "ps", "psd", "rtf", "sxc", "sxi", "sxw", "tif", "tiff", "ttf", "wpd", "xls", "xlsx", "xps"],
-        "file_open_API":"https://docs.google.com/viewer?url={$file_url}&embedded=false&chrome=false&dov=1"
+        "file_open_API":"https://docs.google.com/viewer?url={$file_url}&embedded=true&chrome=false&dov=1"
       },
       {
         "name":"Microsoft Office Online",

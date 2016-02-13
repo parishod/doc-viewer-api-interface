@@ -40,42 +40,38 @@ let givenFileUrl = (typeof(getUrlParameterByName("url", document.location)) !== 
 //Loading json file data
 loadFile("../config/config.json", "json").then(function (response) {
     userPrefJsonData = response;
-    if (getUrlParameterByName("filetype", document.location) === "") { // If the given url doesn't contain filetype extract extension
-        var extFromUrl = getFileExtension(givenFileUrl);
-        var prefService;
+    let fileExtensionOfUrl = (getUrlParameterByName("filetype", document.location) !== null)
+        ? getUrlParameterByName("filetype", document.location)
+        : getFileExtension(givenFileUrl);
+    var prefService;
 
-        // Put the object into storage
-        let viewerUserPrefData = localStorage.getItem('viewer-user-pref');
-        if (viewerUserPrefData != null) {
+    // Put the object into storage
+    let viewerUserPrefData = localStorage.getItem('viewer-user-pref');
+    if (viewerUserPrefData != null) {
 
-            //Read the preference for the given extension
-            try {
-                var jsonFormatData = JSON.parse(decodeURIComponent(viewerUserPrefData));
-            } catch (err) {
-                console.error("Error Parsing User Preferences data to JSON: ", err.message);
-            }
-            let indexPreferredService = jsonFormatData.user_preferences.file_types
-                .findIndex((thisFileTypeObj) => thisFileTypeObj.extension === extFromUrl);
-            prefService = jsonFormatData.user_preferences.file_types[indexPreferredService].preferred_service;
-            console.log("Preferred Service: ", prefService);
+        //Read the preference for the given extension
+        try {
+            var jsonFormatData = JSON.parse(decodeURIComponent(viewerUserPrefData));
+        } catch (err) {
+            console.error("Error Parsing User Preferences data to JSON: ", err.message);
         }
-        else {
-            //Just to verify if cookie is created successfully or not
-            localStorage.setItem('viewer-user-pref', JSON.stringify(userPrefJsonData));
-
-            //Read the default service
-            let indexPreferredService = userPrefJsonData.user_preferences.file_types
-                .findIndex((thisFileTypeObj) => thisFileTypeObj.extension === extFromUrl);
-            prefService = userPrefJsonData.user_preferences.file_types[indexPreferredService].preferred_service;
-            console.log("Preferred Service 1 : ", prefService); // DEBUG
-        }
-        // Loading the URL passed via API in Iframe
-        loadUrlInIframe(givenFileUrl, 'document-viewing-frame', prefService, extFromUrl);
-    } else {
-        console.log("File type found ");
-        // Loading the URL passed via API in Iframe
-        loadUrlInIframe(givenFileUrl, 'document-viewing-frame');
+        let indexPreferredService = jsonFormatData.user_preferences.file_types
+            .findIndex((thisFileTypeObj) => thisFileTypeObj.extension === fileExtensionOfUrl);
+        prefService = jsonFormatData.user_preferences.file_types[indexPreferredService].preferred_service;
+        // console.log("Preferred Service: ", prefService); // DEBUG
     }
+    else {
+        //Just to verify if cookie is created successfully or not
+        localStorage.setItem('viewer-user-pref', JSON.stringify(userPrefJsonData));
+
+        //Read the default service
+        let indexPreferredService = userPrefJsonData.user_preferences.file_types
+            .findIndex((thisFileTypeObj) => thisFileTypeObj.extension === fileExtensionOfUrl);
+        prefService = userPrefJsonData.user_preferences.file_types[indexPreferredService].preferred_service;
+        // console.log("Preferred Service 1 : ", prefService); // DEBUG
+    }
+    // Loading the URL passed via API in Iframe
+    loadUrlInIframe(givenFileUrl, 'document-viewing-frame', prefService, fileExtensionOfUrl);
 }, function (Error) {
     console.error(Error);
 });

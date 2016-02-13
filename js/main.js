@@ -33,12 +33,12 @@ function loadUrlInIframe(fileUrl, elementIdToAppend, preferedService, extension)
     }
 }
 
-let givenFileUrl = (typeof(getVar("url")) !== "undefined")? getVar("url"): "";
+let givenFileUrl = (typeof(getUrlParameterByName("url", document.location)) !== "undefined")? getUrlParameterByName("url", document.location): "";
 
 //Loading json file data
 loadFile("../config/config.json", "json").then(function(response) {
 		userPrefJsonData = response;
-		if(givenFileUrl.lastIndexOf("&filetype") == -1){ // If the given url doesn't contain filetype extract extension
+		if(getUrlParameters("filetype", givenFileUrl) === ""){ // If the given url doesn't contain filetype extract extension
 			var extFromUrl = getFileExtension(givenFileUrl);
 			var prefService;
 

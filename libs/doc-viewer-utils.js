@@ -76,14 +76,18 @@ function loadTextFile(url) {
     });
 }
 
-function getVar(name) {
-    var get_string = document.location.search;
+function getUrlParameterByName(paramName, url) {
+    url = (typeof url !== "undefined" || url !== null)
+        ? url
+        : document.location;
+    url = url.toString();
+    var get_string = url.substring(url.indexOf("?"));
     var return_value = '';
     do
     { //This loop is made to catch all instances of any get variable.
-        var name_index = get_string.indexOf(name + '=');
+        var name_index = get_string.indexOf(paramName + '=');
         if (name_index != -1) {
-            get_string = get_string.substr(name_index + name.length + 1, get_string.length - name_index);
+            get_string = get_string.substr(name_index + paramName.length + 1, get_string.length - name_index);
             var end_of_value = get_string.indexOf('&');
             if (end_of_value != -1)
                 var value = get_string.substr(0, end_of_value);

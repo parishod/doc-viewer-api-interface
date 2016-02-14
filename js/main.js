@@ -3,35 +3,18 @@
  */
 "use strict";
 
-function loadUrlInIframe(fileUrl, elementIdToAppend, preferedService, extension, defaultConfigData) {
-    if (fileUrl === "" || typeof fileUrl == "undefined" || fileUrl === null) {
-        return;
-    }
+function loadUrlInIframeById(iframeUrl, elementId) {
+    if (iframeUrl === "" || typeof iframeUrl == "undefined" || iframeUrl === null) {return;}
     var ifrm = document.createElement('iframe');
-    ifrm.setAttribute('id', 'ifrm'); // assign an id
     ifrm.setAttribute('style', "border: 0; position:absolute; top:0; left:0; right:0; bottom:0; width:100%; height:100%;");
-    ifrm.setAttribute('name', "ifrm");
+    ifrm.setAttribute('name', "document-viewing-iframe");
+    ifrm.setAttribute('src', iframeUrl);
 
     // to place before another page element
-    var el = document.getElementById(elementIdToAppend);
-    el.innerHTML = ""; // Empty any previous contents of that element
-    el.parentNode.insertBefore(ifrm, el);
-
-    // assign url
-    if (extension == null) { // Extension null implies url is of the type &filetype
-        ifrm.setAttribute('src', '' + fileUrl);
-    }
-    else if (preferedService == null) {
-        ifrm.setAttribute('src', 'https://view.officeapps.live.com/op/view.aspx?src=' + fileUrl);
-    }
-    else {
-        let indexPreferredService = defaultConfigData.supported_services
-            .findIndex((thisFileTypeObj) => thisFileTypeObj.id === preferedService);
-        let reqAPI = defaultConfigData.supported_services[indexPreferredService].file_open_API;
-        let reqUrl = reqAPI.replace('{$file_url}', '' + fileUrl)
-        // console.log("Required url : ", reqUrl) // DEBUG
-        ifrm.setAttribute('src', reqUrl);
-    }
+    let elementToAttachIFrame = document.getElementById(elementId);
+    if(typeof elementToAttachIFrame === "undefined") {return;}
+    elementToAttachIFrame.innerHTML = ""; // Empty any previous contents of that element
+    elementToAttachIFrame.parentNode.insertBefore(ifrm, elementToAttachIFrame);
 }
 
 
@@ -51,23 +34,46 @@ loadFile("../config/config.json", "json").then(function (defaultConfigData) {
         localStorage.setItem('viewer-user-pref', JSON.stringify(defaultConfigData));
     }
 
-    //Read the preference for the given extension
-    let prefService;
     try {
         let jsonFormatData = JSON.parse(decodeURIComponent(localStorage.getItem('viewer-user-pref')));
-        console.log("jsonFormatData:", jsonFormatData);
+        // console.log("jsonFormatData:", jsonFormatData); //DEBUG
         let indexPreferredService = jsonFormatData.user_preferences.file_types
             .findIndex((thisFileTypeObj) => thisFileTypeObj.extension === fileExtensionOfUrl);
-        prefService = (indexPreferredService !== -1)
-            ? jsonFormatData.user_preferences.file_types[indexPreferredService].preferred_service
-            : null;
-    } catch (err) {
-        console.error("Error Parsing User Preferences data to JSON: ", err.message);
-    }
-    // console.log("Preferred Service: ", prefService); // DEBUG
+        let prefService;
+        if(indexPreferredService !== -1) {
+            prefService = jsonFormatData.user_preferences.file_types[indexPreferredService].preferred_service
+        }else {
+            // This can happen when bad URL is used. Like http://domain.com/viewer?url=
+            throw `Could not find preferred service id for URL ${fileExtensionOfUrl}`;
+        }
 
-    // Loading the URL passed via API in Iframe
-    loadUrlInIframe(givenFileUrl, 'document-viewing-frame', prefService, fileExtensionOfUrl, defaultConfigData);
+        let indexSuportedService = jsonFormatData.supported_services
+            .findIndex((thisService) => thisService.id === prefService);
+        let iframeUrl;
+        if(indexSuportedService !== -1) {
+            let fileOpenUrlTemplate = jsonFormatData.supported_services[indexSuportedService].file_open_API;
+            if(fileOpenUrlTemplate.indexOf("{$file_url}") !== -1) {
+                iframeUrl = fileOpenUrlTemplate.replace('{$file_url}', encodeURIComponent(givenFileUrl));
+            }else {
+                // Can happen if config data is corrupted or API string is not correctly formed.
+                // Basically, assuming that we have to replace \"{$file_url}\" with the file url
+                // If that pattern is not found, throw an error. (unless if it is changed in future)
+                throw `Unknown formatting of File Open API template`;
+            }
+        } else {
+            // This could happen if the service is not available in the config data.
+            throw `Could not find URL template for service ${prefService}`;
+        }
+
+        // Loading the URL passed via API in Iframe
+        if (iframeUrl !== null) {
+            loadUrlInIframeById(iframeUrl, 'document-viewing-frame');
+        }else {
+            throw `iframe URL is ${iframeUrl}`;
+        }
+    } catch (err) {
+        console.error("Error in promise generating iframe URL: ", err);
+    }
 }, function (Error) {
     console.error(Error);
 });

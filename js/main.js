@@ -20,7 +20,7 @@ function loadUrlInIframeById(iframeUrl, elementId) {
 
 // Loading json file data
 loadFile("../config/config.json", "json").then(function (defaultConfigData) {
-    let givenFileUrl = getUrlParameterByName("url", document.location);
+    let givenFileUrl = decodeURIComponent(getUrlParameterByName("url", document.location));
 
     // Assigning Href to Download button in floating menu
     assignAttrToDocumentElementById("href", givenFileUrl, "floating-menu-main-download-id");

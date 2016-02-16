@@ -1,5 +1,6 @@
 /**
- * Copyright parishod.com 2016
+ * Authors: Deekshith Allamaneni, Uday Kumar Swarnapuri
+ * Copyright Deekshith Allamaneni 2016
  */
 "use strict";
 

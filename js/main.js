@@ -59,7 +59,7 @@ loadFile("../config/config.json", "json").then(function (defaultConfigData) {
         let iframeUrl;
         if(indexSuportedService !== -1) {
             let fileOpenUrlTemplate = jsonFormatData.supported_services[indexSuportedService].file_open_API;
-            //console.log("fileOpenUrlTemplate :", fileOpenUrlTemplate); //DEBUG
+            console.log("fileOpenUrlTemplate :", fileOpenUrlTemplate); //DEBUG
             if(fileOpenUrlTemplate.indexOf("{$file_url}") !== -1) {
                 iframeUrl = fileOpenUrlTemplate.replace('{$file_url}', encodeURIComponent(givenFileUrl));
                 //console.log("iframeUrl :", iframeUrl); //DEBUG

@@ -25,11 +25,15 @@ loadFile("../config/config.json", "json").then(function (defaultConfigData) {
 
     // Assigning Href to Download button in floating menu
     assignAttrToDocumentElementById("href", givenFileUrl, "floating-menu-main-download-id");
-
+    // Assigning Href to Social share menus.
+    assignAttrToDocumentElementById("href", `https://www.facebook.com/sharer/sharer.php?u=${givenFileUrl}`, "social-share-facebook");
+    assignAttrToDocumentElementById("href", `http://twitter.com/share?text=Liked it.&url=${givenFileUrl}&hashtags=hashtag1,hashtag2,hashtag3`, "social-share-twitter");
+    assignAttrToDocumentElementById("href", `https://plus.google.com/share?url=${givenFileUrl}`, "social-share-googleplus");
+    
     let fileExtensionOfUrl = (getUrlParameterByName("filetype", document.location) !== null)
         ? getUrlParameterByName("filetype", document.location)
         : getFileExtension(givenFileUrl);
-
+    //console.log("fileExtensionOfUrl :", fileExtensionOfUrl); //DEBUG
     //console.log("localStorage.getItem:", localStorage.getItem('viewer-user-pref')); // DEBUG
     if (localStorage.getItem('viewer-user-pref') === null) {
         localStorage.setItem('viewer-user-pref', JSON.stringify(defaultConfigData));
@@ -37,12 +41,14 @@ loadFile("../config/config.json", "json").then(function (defaultConfigData) {
 
     try {
         let jsonFormatData = JSON.parse(decodeURIComponent(localStorage.getItem('viewer-user-pref')));
-        // console.log("jsonFormatData:", jsonFormatData); //DEBUG
+        //console.log("localStorage.getItem('viewer-user-pref'):", localStorage.getItem('viewer-user-pref')); //DEBUG
         let indexPreferredService = jsonFormatData.user_preferences.file_types
             .findIndex((thisFileTypeObj) => thisFileTypeObj.extension === fileExtensionOfUrl);
         let prefService;
+        //console.log("indexPreferredService :", indexPreferredService); //DEBUG
         if(indexPreferredService !== -1) {
             prefService = jsonFormatData.user_preferences.file_types[indexPreferredService].preferred_service
+            //console.log("prefService :", prefService); //DEBUG
         }else {
             // This can happen when bad URL is used. Like http://domain.com/viewer?url=
             throw `Could not find preferred service id for URL ${fileExtensionOfUrl}`;
@@ -50,11 +56,14 @@ loadFile("../config/config.json", "json").then(function (defaultConfigData) {
 
         let indexSuportedService = jsonFormatData.supported_services
             .findIndex((thisService) => thisService.id === prefService);
+        //console.log("indexSuportedService :", indexSuportedService); //DEBUG
         let iframeUrl;
         if(indexSuportedService !== -1) {
             let fileOpenUrlTemplate = jsonFormatData.supported_services[indexSuportedService].file_open_API;
+            console.log("fileOpenUrlTemplate :", fileOpenUrlTemplate); //DEBUG
             if(fileOpenUrlTemplate.indexOf("{$file_url}") !== -1) {
                 iframeUrl = fileOpenUrlTemplate.replace('{$file_url}', encodeURIComponent(givenFileUrl));
+                //console.log("iframeUrl :", iframeUrl); //DEBUG
             }else {
                 // Can happen if config data is corrupted or API string is not correctly formed.
                 // Basically, assuming that we have to replace \"{$file_url}\" with the file url

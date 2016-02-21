@@ -89,11 +89,11 @@ function getAllUrlParameters(url) {
         .filter((keyValArr) => keyValArr.length === 2)
         .map((keyValArr) => {
             return {"key":keyValArr[0], "value":keyValArr[1]};
-        })
+        });
 }
 
 
-function getUrlParameterByName(paramName, url) {
+function getUrlParameterByName(paramName, url) { // Depends on getAllUrlParameters()
     if(typeof url !== "string"
             || typeof paramName !== "string"
             || url.length === 0

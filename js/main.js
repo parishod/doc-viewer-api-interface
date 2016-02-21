@@ -21,7 +21,7 @@ function loadUrlInIframeById(iframeUrl, elementId) {
 
 // Loading json file data
 loadFile("../config/config.json", "json").then(function (defaultConfigData) {
-    let givenFileUrl = decodeURIComponent(getUrlParameterByName("url", document.location));
+    let givenFileUrl = decodeURIComponent(getUrlParameterByName("url", document.location.href));
 
     // Assigning Href to Download button in floating menu
     assignAttrToDocumentElementById("href", givenFileUrl, "floating-menu-main-download-id");
@@ -30,8 +30,8 @@ loadFile("../config/config.json", "json").then(function (defaultConfigData) {
     assignAttrToDocumentElementById("href", `http://twitter.com/share?text=Liked it.&url=${givenFileUrl}&hashtags=hashtag1,hashtag2,hashtag3`, "social-share-twitter");
     assignAttrToDocumentElementById("href", `https://plus.google.com/share?url=${givenFileUrl}`, "social-share-googleplus");
     
-    let fileExtensionOfUrl = (getUrlParameterByName("filetype", document.location) !== null)
-        ? getUrlParameterByName("filetype", document.location)
+    let fileExtensionOfUrl = (getUrlParameterByName("filetype", document.location.href) !== null)
+        ? getUrlParameterByName("filetype", document.location.href)
         : getFileExtension(givenFileUrl);
     //console.log("fileExtensionOfUrl :", fileExtensionOfUrl); //DEBUG
     //console.log("localStorage.getItem:", localStorage.getItem('viewer-user-pref')); // DEBUG

@@ -41,6 +41,7 @@ loadFile("../config/config.json", "json").then(function (defaultConfigData) {
 
     try {
         let jsonFormatData = JSON.parse(decodeURIComponent(localStorage.getItem('viewer-user-pref')));
+        let thisUserConfiguration = new AnyFileViewerUserConfig(jsonFormatData);
         //console.log("localStorage.getItem('viewer-user-pref'):", localStorage.getItem('viewer-user-pref')); //DEBUG
         let indexPreferredService = jsonFormatData.user_preferences.file_types
             .findIndex((thisFileTypeObj) => thisFileTypeObj.extension === fileExtensionOfUrl);
@@ -81,6 +82,15 @@ loadFile("../config/config.json", "json").then(function (defaultConfigData) {
         }else {
             throw `iframe URL is ${iframeUrl}`;
         }
+        // Fill FileType service settings
+        let fileTypeServicesSettingsHtml = thisUserConfiguration.allSupportedFileTypes()
+            .reduce((prevFileType, currFileType) => {
+                return prevFileType.concat(
+                    getFileTypesSettigsContent(currFileType, thisUserConfiguration.supportedServiceIdsByFileType(currFileType))
+                );
+            },"");
+        console.log("fileTypeServicesSettingsHtml", fileTypeServicesSettingsHtml);
+        document.getElementById("settings-services-tab-row").innerHTML=fileTypeServicesSettingsHtml;
     } catch (err) {
         console.error("Error in promise generating iframe URL: ", err);
     }

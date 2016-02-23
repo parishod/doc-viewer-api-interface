@@ -85,9 +85,11 @@ loadFile("../config/config.json", "json").then(function (defaultConfigData) {
         // Fill FileType service settings
         let fileTypeServicesSettingsHtml = thisUserConfiguration.allSupportedFileTypes()
             .reduce((prevFileType, currFileType) => {
-                return prevFileType.concat(
-                    getFileTypesSettigsContent(currFileType, thisUserConfiguration.supportedServiceIdsByFileType(currFileType))
-                );
+                let supportedServices = thisUserConfiguration.supportedServiceIdsByFileType(currFileType);
+
+                return (supportedServices.length > 1)
+                    ? prevFileType.concat(getFileTypesSettigsContent(currFileType, supportedServices))
+                    : prevFileType;
             },"");
         console.log("fileTypeServicesSettingsHtml", fileTypeServicesSettingsHtml);
         document.getElementById("settings-services-tab-row").innerHTML=fileTypeServicesSettingsHtml;

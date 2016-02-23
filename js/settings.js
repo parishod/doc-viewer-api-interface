@@ -13,7 +13,7 @@ function getFileTypesSettigsContent(fileType, supportedServicesArr){
     let formId = `service-option-${fileType.toLowerCase()}`;
 
     return `
-        <div class="col-xs-4">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
             <div class="form-group">
                 <label for="${formId}">${fileType.toUpperCase()}</label>
                 <select class="form-control" id="${formId}">

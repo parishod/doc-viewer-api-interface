@@ -23,3 +23,10 @@ function getFileTypesSettigsContent(fileType, supportedServicesArr){
             </div>
         </div>`;
 }
+
+//Reference: http://www.javascriptkit.com/jsref/select.shtml , Events
+document.getElementById("settings-services-tab-row").onchange=function(){ //run some code when "onchange" event fires
+    let selectmenu=document.getElementById("service-option-doc");
+    let chosenoption=selectmenu.options[selectmenu.selectedIndex].value 
+    console.log("Selected item : ", chosenoption);
+}

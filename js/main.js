@@ -30,6 +30,12 @@ loadFile("../config/config.json", "json").then(function (defaultConfigData) {
     assignAttrToDocumentElementById("href", `http://twitter.com/share?text=Liked it.&url=${givenFileUrl}&hashtags=hashtag1,hashtag2,hashtag3`, "social-share-twitter");
     assignAttrToDocumentElementById("href", `https://plus.google.com/share?url=${givenFileUrl}`, "social-share-googleplus");
     
+    //Copy to clipboard functionality
+    let copyToClipboardVar = document.getElementById("floating-menu-main-copy-to-clipboard");
+    copyToClipboardVar.addEventListener('click', function(event) {
+      copyTextToClipboard(givenFileUrl);
+    });
+
     let fileExtensionOfUrl = (getUrlParameterByName("filetype", document.location.href) !== null)
         ? getUrlParameterByName("filetype", document.location.href)
         : getFileExtension(givenFileUrl);
@@ -91,7 +97,7 @@ loadFile("../config/config.json", "json").then(function (defaultConfigData) {
                     ? prevFileType.concat(getFileTypesSettigsContent(currFileType, supportedServices))
                     : prevFileType;
             },"");
-        console.log("fileTypeServicesSettingsHtml", fileTypeServicesSettingsHtml);
+        //console.log("fileTypeServicesSettingsHtml", fileTypeServicesSettingsHtml);
         document.getElementById("settings-services-tab-row").innerHTML=fileTypeServicesSettingsHtml;
     } catch (err) {
         console.error("Error in promise generating iframe URL: ", err);

@@ -177,16 +177,23 @@ function copyTextToClipboard(text) {
     
     document.body.removeChild(textArea);
     
-    let copyToClipBoardHtml = `<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+     /*let copyToClipBoardHtml = `<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <p><mark>${text}</mark></p><br>
         <p>Copying text was ${msg}</p>
     </div>`
     
-    document.getElementById("copy-to-clipboard-row").innerHTML = copyToClipBoardHtml;
-    /*let copyClipboardElement = document.getElementById("copy-to-clipboard-row");
+    //document.getElementById("copy-to-clipboard-row").innerHTML = copyToClipBoardHtml;
+   let copyClipboardElement = document.getElementById("copy-to-clipboard-row");
     copyClipboardElement.value = text;
     copyClipboardElement.select();*/
+    
+    BootstrapDialog.show({
+        title: 'Clipboard Text',
+        message: text
+    });
 }
+
+
 //======= Functions to Read and Write Cookies ======
 /**
  * Creates Cookie to save the user preferences for api to be used for a given file type.

@@ -121,7 +121,11 @@ function assignAttrToDocumentElementById(attribute, attributeValue, elementId) {
 
 
 //Reference: http://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript, Section: Complex Example: Copy to clipboard without displaying input
-function copyTextToClipboard(text) {
+function copyTextToClipboard() {
+    let text = document.location.href;//document.getElementById("social-share-copytoclipboard").value;
+    document.getElementById('social-share-url').value = text;
+    
+    console.log("Clipboard Text :", text)
     var textArea = document.createElement("textarea");
 
     //
@@ -175,7 +179,7 @@ function copyTextToClipboard(text) {
         console.log('Oops, unable to copy');
     }
     
-    document.body.removeChild(textArea);
+    //document.body.removeChild(textArea);
     
      /*let copyToClipBoardHtml = `<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <p><mark>${text}</mark></p><br>
@@ -187,10 +191,10 @@ function copyTextToClipboard(text) {
     copyClipboardElement.value = text;
     copyClipboardElement.select();*/
     
-    BootstrapDialog.show({
+    /*BootstrapDialog.show({
         title: 'Clipboard Text',
         message: text
-    });
+    });*/
 }
 
 

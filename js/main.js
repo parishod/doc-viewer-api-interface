@@ -29,18 +29,13 @@ loadFile("../config/config.json", "json").then(function (defaultConfigData) {
     assignAttrToDocumentElementById("href", `https://www.facebook.com/sharer/sharer.php?u=${givenFileUrl}`, "social-share-facebook");
     assignAttrToDocumentElementById("href", `http://twitter.com/share?text=Liked it.&url=${givenFileUrl}&hashtags=hashtag1,hashtag2,hashtag3`, "social-share-twitter");
     assignAttrToDocumentElementById("href", `https://plus.google.com/share?url=${givenFileUrl}`, "social-share-googleplus");
-    
-    //assignAttrToDocumentElementById("value", givenFileUrl, "social-share-copytoclipboard");
-   let shareUrlElement = document.getElementById('social-share-url');
-   shareUrlElement.value = document.location.href;
-   // shareUrlElement.select();
-   shareUrlElement.setSelectionRange(0, shareUrlElement.value.length);
-   
-   //Copy to clipboard functionality
-    /*let copyToClipboardVar = document.getElementById("floating-menu-main-copy-to-clipboard");
-    copyToClipboardVar.addEventListener('click', function(event) {
-      copyTextToClipboard(givenFileUrl);
-    });*/
+
+    let shareUrlElement = document.getElementById('social-share-url');
+    shareUrlElement.value = document.location.href;
+    shareUrlElement.onclick = () => {
+        // shareUrlElement.select(); // Does not work in Mobile Safari http://stackoverflow.com/a/4067488/3439460
+        shareUrlElement.setSelectionRange(0, shareUrlElement.value.length);
+    };
 
     let fileExtensionOfUrl = (getUrlParameterByName("filetype", document.location.href) !== null)
         ? getUrlParameterByName("filetype", document.location.href)

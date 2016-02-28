@@ -31,6 +31,10 @@ loadFile("../config/config.json", "json").then(function (defaultConfigData) {
     assignAttrToDocumentElementById("href", `https://plus.google.com/share?url=${givenFileUrl}`, "social-share-googleplus");
     
     //assignAttrToDocumentElementById("value", givenFileUrl, "social-share-copytoclipboard");
+   let shareUrlElement = document.getElementById('social-share-url');
+   shareUrlElement.value = document.location.href;
+   // shareUrlElement.select();
+   shareUrlElement.setSelectionRange(0, shareUrlElement.value.length);
    
    //Copy to clipboard functionality
     /*let copyToClipboardVar = document.getElementById("floating-menu-main-copy-to-clipboard");

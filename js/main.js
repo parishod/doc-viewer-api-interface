@@ -27,7 +27,7 @@ loadFile("../config/config.json", "json").then(function (defaultConfigData) {
     assignAttrToDocumentElementById("href", givenFileUrl, "floating-menu-main-download-id");
     // Assigning Href to Social share menus.
     assignAttrToDocumentElementById("href", `https://www.facebook.com/sharer/sharer.php?u=${givenFileUrl}`, "social-share-facebook");
-    assignAttrToDocumentElementById("href", `http://twitter.com/share?text=Liked it.&url=${givenFileUrl}&hashtags=hashtag1,hashtag2,hashtag3`, "social-share-twitter");
+    assignAttrToDocumentElementById("href", `http://twitter.com/share?text=Liked it.&url=${givenFileUrl}`, "social-share-twitter");
     assignAttrToDocumentElementById("href", `https://plus.google.com/share?url=${givenFileUrl}`, "social-share-googleplus");
 
     let shareUrlElement = document.getElementById('social-share-url');

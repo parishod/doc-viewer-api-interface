@@ -100,6 +100,21 @@ loadFile("../config/config.json", "json").then(function (defaultConfigData) {
             },"");
         //console.log("fileTypeServicesSettingsHtml", fileTypeServicesSettingsHtml);
         document.getElementById("settings-services-tab-row").innerHTML=fileTypeServicesSettingsHtml;
+
+        // Implements the Hide Hobsons button in settings
+        // Toggles hiding file types with only single service in the settings menu
+        let hideHobsonsCheckbox = document.getElementById("hide-hobsons-checkbox-services-settings");
+        hideHobsonsCheckbox.addEventListener("change", () => {
+            document.getElementById("settings-services-tab-row").innerHTML =
+                thisUserConfiguration.allSupportedFileTypes()
+                    .reduce((prevFileType, currFileType) => {
+                        let supportedServices = thisUserConfiguration.supportedServiceIdsByFileType(currFileType);
+
+                        return (supportedServices.length > 1 || !hideHobsonsCheckbox.checked)
+                            ? prevFileType.concat(getFileTypesSettigsContent(currFileType, supportedServices))
+                            : prevFileType;
+                    },"");
+        });
     } catch (err) {
         console.error("Error in promise generating iframe URL: ", err);
     }

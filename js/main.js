@@ -93,9 +93,10 @@ loadFile("../config/config.json", "json").then(function (defaultConfigData) {
         let fileTypeServicesSettingsHtml = thisUserConfiguration.allSupportedFileTypes()
             .reduce((prevFileType, currFileType) => {
                 let supportedServices = thisUserConfiguration.supportedServiceIdsByFileType(currFileType);
+                let preferredService = thisUserConfiguration.getPreferredServiceIdByFileType(currFileType);
 
                 return (supportedServices.length > 1)
-                    ? prevFileType.concat(getFileTypesSettigsContent(currFileType, supportedServices))
+                    ? prevFileType.concat(getFileTypesSettigsContent(currFileType, supportedServices, preferredService))
                     : prevFileType;
             },"");
         //console.log("fileTypeServicesSettingsHtml", fileTypeServicesSettingsHtml);
@@ -109,9 +110,10 @@ loadFile("../config/config.json", "json").then(function (defaultConfigData) {
                 thisUserConfiguration.allSupportedFileTypes()
                     .reduce((prevFileType, currFileType) => {
                         let supportedServices = thisUserConfiguration.supportedServiceIdsByFileType(currFileType);
+                        let preferredService = thisUserConfiguration.getPreferredServiceIdByFileType(currFileType);
 
                         return (supportedServices.length > 1 || !hideHobsonsCheckbox.checked)
-                            ? prevFileType.concat(getFileTypesSettigsContent(currFileType, supportedServices))
+                            ? prevFileType.concat(getFileTypesSettigsContent(currFileType, supportedServices, preferredService))
                             : prevFileType;
                     },"");
         });

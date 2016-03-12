@@ -9,8 +9,8 @@
         "file_types" : [
             {"extension" : "ai",    "preferred_service" : "google_docs"},
             {"extension" : "csv",   "preferred_service" : "google_docs"},
-            {"extension" : "doc",   "preferred_service" : "google_docs"},
-            {"extension" : "docx",  "preferred_service" : "google_docs"},
+            {"extension" : "doc",   "preferred_service" : "mso_online"},
+            {"extension" : "docx",  "preferred_service" : "mso_online"},
             {"extension" : "dxf",   "preferred_service" : "google_docs"},
             {"extension" : "eps",   "preferred_service" : "google_docs"},
             {"extension" : "odp",   "preferred_service" : "google_docs"},
@@ -31,8 +31,8 @@
             {"extension" : "tiff",  "preferred_service" : "google_docs"},
             {"extension" : "ttf",   "preferred_service" : "google_docs"},
             {"extension" : "wpd",   "preferred_service" : "google_docs"},
-            {"extension" : "xls",   "preferred_service" : "google_docs"},
-            {"extension" : "xlsx",  "preferred_service" : "google_docs"},
+            {"extension" : "xls",   "preferred_service" : "mso_online"},
+            {"extension" : "xlsx",  "preferred_service" : "mso_online"},
             {"extension" : "xps",   "preferred_service" : "google_docs"}
         ],
         "privacy" : {

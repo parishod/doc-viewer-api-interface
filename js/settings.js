@@ -4,11 +4,11 @@
  */
 "use strict";
 
-function getFileTypesSettigsContent(fileType, supportedServicesArr){
+function getFileTypesSettigsContent(fileType, supportedServicesArr, preferredService){
     fileType=fileType.trim();
     let formOptions = supportedServicesArr
         .reduce((prev, curr) => {
-            return prev+`<option>${curr}</option>`;
+            return prev+`<option ${(curr === preferredService)? "selected=\"selected\"": ""}>${curr}</option>`;
         }, "");
     const formId = `service-option-${fileType.toLowerCase()}`;
     let formStatus = (supportedServicesArr.length === 1)

@@ -23,3 +23,8 @@ AnyFileViewerUserConfig.prototype.supportedServiceIdsByFileType = function (file
         })
         .filter(serviceId => serviceId !== null);
 };
+
+AnyFileViewerUserConfig.prototype.getPreferredServiceIdByFileType = function (fileType) {
+    return this.configDataJSON_.user_preferences.file_types
+        .find(fileTypesObj => fileTypesObj.extension === fileType).preferred_service;
+};

@@ -30,7 +30,15 @@ document.getElementById("settings-services-tab-row").onchange=function(){ //run 
         let jsonFormatData = JSON.parse(decodeURIComponent(localStorage.getItem('viewer-user-pref')));
         let thisUserConfiguration = new AnyFileViewerUserConfig(jsonFormatData);
         let fileTypeServicesSettingsHtml = thisUserConfiguration.allSupportedFileTypes()
-                
+
+        let statusDisplayNode = document.getElementById("services-settings-modal-update-status-message");
+        statusDisplayNode.innerHTML=
+            `
+            <div class="text-warning text-center">
+                <i class="fa fa-spinner fa-pulse"></i> Saving Preferences
+            </div>
+            `;
+
         //console.log("element_name :", fileTypeServicesSettingsHtml); //DEBUG
         let fileTypes;
         for(fileTypes in fileTypeServicesSettingsHtml){
@@ -61,7 +69,15 @@ document.getElementById("settings-services-tab-row").onchange=function(){ //run 
                 }
             }
         }
-        //localStorage.setItem('viewer-user-pref', JSON.stringify(jsonFormatData));
+
+        setTimeout(function() {
+            statusDisplayNode.innerHTML=
+            `
+            <div class="text-success text-center">
+                <i class="fa fa-check fa-fw"></i> Preferences saved
+            </div>
+            `;
+        }, 800);
     } catch (err) {
         console.error("getElementById Error: ", err);
     }

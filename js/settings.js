@@ -11,13 +11,10 @@ function getFileTypesSettigsContent(fileType, supportedServicesArr, preferredSer
             return prev+`<option ${(curr === preferredService)? "selected=\"selected\"": ""}>${curr}</option>`;
         }, "");
     const formId = `service-option-${fileType.toLowerCase()}`;
-    let formStatus = (supportedServicesArr.length === 1)
-        ? `disabled`
-        : ``;
     return `<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
             <div class="form-group form-inline text-uppercase">
                 <label for="${formId}" style="padding-right: 8px">${fileType.toUpperCase()}</label>
-                <select class="form-control" id="${formId}" ${formStatus}>
+                <select class="form-control" id="${formId}">
 					${formOptions}
                 </select>
             </div>

@@ -147,6 +147,14 @@ function copyTextToClipboard(textToCopy) {
         let successful = document.execCommand('copy');
         let msg = successful ? 'successful' : 'unsuccessful';
         console.log('Copying text command was ' + msg);
+        //#22 clipboard should change tooltip on copy
+        let shareUrlElement = document.getElementById('social-share-copytoclipboard-span');
+        console.log(shareUrlElement.getAttribute("data-hint"));
+        shareUrlElement.setAttribute("data-hint", "Copied");
+        //Reference http://webdesign.tutsplus.com/tutorials/copy-to-clipboard-made-easy-with-clipboardjs--cms-25086
+        window.setTimeout(function() {
+             shareUrlElement.setAttribute("data-hint", "Copy To Clipboard");;
+        }, 500);
     } catch (err) {
         console.log('Oops, unable to copy');
     }

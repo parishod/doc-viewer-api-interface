@@ -27,8 +27,7 @@ function getFileTypesSettigsContent(fileType, supportedServicesArr, preferredSer
 // let settingsServicesElement = document.getElementById("settings-services-tab-row");
 //Reference: http://www.javascriptkit.com/jsref/select.shtml , Events
 document.getElementById("settings-services-tab-row").onchange=function(){ //run some code when "onchange" event fires
-    
-    
+        
     try {
         let jsonFormatData = JSON.parse(decodeURIComponent(localStorage.getItem('viewer-user-pref')));
         let thisUserConfiguration = new AnyFileViewerUserConfig(jsonFormatData);

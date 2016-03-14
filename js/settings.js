@@ -29,7 +29,7 @@ document.getElementById("settings-services-tab-row").onchange=function(){ //run 
     try {
         let jsonFormatData = JSON.parse(decodeURIComponent(localStorage.getItem('viewer-user-pref')));
         let thisUserConfiguration = new AnyFileViewerUserConfig(jsonFormatData);
-        let fileTypeServicesSettingsHtml = thisUserConfiguration.allSupportedFileTypes()
+        let fileTypeServicesSettingsHtml = thisUserConfiguration.allSupportedFileTypes();
 
         let statusDisplayNode = document.getElementById("services-settings-modal-update-status-message");
         statusDisplayNode.innerHTML=
@@ -50,7 +50,6 @@ document.getElementById("settings-services-tab-row").onchange=function(){ //run 
             
                 let fileExtensionOfUrl = fileTypeServicesSettingsHtml[fileTypes];
                 let jsonFormatData = JSON.parse(decodeURIComponent(localStorage.getItem('viewer-user-pref')));
-                let thisUserConfiguration = new AnyFileViewerUserConfig(jsonFormatData);
                 //console.log("localStorage.getItem('viewer-user-pref'):", localStorage.getItem('viewer-user-pref')); //DEBUG
                 let indexPreferredService = jsonFormatData.user_preferences.file_types
                     .findIndex((thisFileTypeObj) => thisFileTypeObj.extension === fileExtensionOfUrl);
@@ -81,10 +80,11 @@ document.getElementById("settings-services-tab-row").onchange=function(){ //run 
     } catch (err) {
         console.error("getElementById Error: ", err);
     }
-}
+};
 
 // On Settings Modal Closed (Hidden)
 $('#settings-modal').on('hidden.bs.modal', function () {
+    // Ref: http://stackoverflow.com/a/8364113/3439460
     document.getElementById("services-settings-modal-update-status-message")
         .innerHTML = "<br/>";
 });

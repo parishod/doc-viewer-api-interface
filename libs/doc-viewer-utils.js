@@ -180,15 +180,21 @@ function copyToClipboardByTextId(textElementId) {
         // console.log(shareUrlElement.getAttribute("data-hint"));
         shareUrlElement.setAttribute("data-hint", "Copied");
         //Reference http://webdesign.tutsplus.com/tutorials/copy-to-clipboard-made-easy-with-clipboardjs--cms-25086
-        window.setTimeout(function() {
-             shareUrlElement.setAttribute("data-hint", "Copy To Clipboard");;
-        }, 800);
+        // window.setTimeout(function() {
+             // shareUrlElement.setAttribute("data-hint", "Copy To Clipboard");
+        // }, 800);
     } catch (err) {
         console.log('Oops, unable to copy');
     }
 
 }
 
+//Reference: https://developer.mozilla.org/en-US/docs/Web/Events/mouseover
+document.getElementById('social-share-copytoclipboard-span').addEventListener("mouseover", function( event ) {   
+    // change the copyTextToClipboard attributr on mouseover
+    this.setAttribute("data-hint", "Copy To Clipboard");
+}, false);
+  
 //======= Functions to Read and Write Cookies ======
 /**
  * Creates Cookie to save the user preferences for api to be used for a given file type.

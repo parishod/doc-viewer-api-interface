@@ -165,36 +165,20 @@ function copyTextToClipboard(textToCopy) {
 
 //Reference: http://stackoverflow.com/a/30810322/3439460 Section: Complex Example: Copy to clipboard without displaying input
 function copyToClipboardByTextId(textElementId) {
-    // console.log('textElementId ', textElementId);//DEBUG
-    
     try {
         let copyToClipBoardElement = document.getElementById(textElementId);
-        // console.log('copyToClipBoardElement.value ', copyToClipBoardElement.value);//DEBUG
         copyToClipBoardElement.setSelectionRange(0, copyToClipBoardElement.value.length);
         
-        let successful = document.execCommand('copy');
-        let msg = successful ? 'successful' : 'unsuccessful';
-        console.log('Copying text command was ' + msg);
-        //#22 clipboard should change tooltip on copy
-        let shareUrlElement = document.getElementById('social-share-copytoclipboard-span');
-        // console.log(shareUrlElement.getAttribute("data-hint"));
-        shareUrlElement.setAttribute("data-hint", "Copied");
-        //Reference http://webdesign.tutsplus.com/tutorials/copy-to-clipboard-made-easy-with-clipboardjs--cms-25086
-        // window.setTimeout(function() {
-             // shareUrlElement.setAttribute("data-hint", "Copy To Clipboard");
-        // }, 800);
+        let copyStatus = document.execCommand('copy');
+        if(copyStatus === false) {
+            console.log("Copy to clipboard failed");
+        }
     } catch (err) {
         console.log('Oops, unable to copy');
     }
-
 }
 
-//Reference: https://developer.mozilla.org/en-US/docs/Web/Events/mouseover
-document.getElementById('social-share-copytoclipboard-span').addEventListener("mouseover", function( event ) {   
-    // change the copyTextToClipboard attributr on mouseover
-    this.setAttribute("data-hint", "Copy To Clipboard");
-}, false);
-  
+
 //======= Functions to Read and Write Cookies ======
 /**
  * Creates Cookie to save the user preferences for api to be used for a given file type.

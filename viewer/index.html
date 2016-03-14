@@ -120,7 +120,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control" id="social-share-url">
                             <span id="social-share-copytoclipboard-span" class="hint--top input-group-addon" data-hint="Copy To Clipboard">
-					            <a id="social-share-copytoclipboard" onclick="copyToClipboardByTextId('social-share-url')">
+					            <a id="social-share-copytoclipboard" onclick="socialShareCopyToClipboard();">
                                     <i class="fa fa-clipboard fa-2x"></i>
                                 </a>
                             </span>
@@ -211,6 +211,7 @@
     
     <script src="../js/config.js"></script>
     <script src="../js/settings.js"></script>
+    <script src="../js/social-share.js"></script>
     
 	<!-- To Launch the iframe for the doc trying to open -->
 	<script src="../libs/doc-viewer-utils.js"></script>

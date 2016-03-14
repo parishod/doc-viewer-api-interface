@@ -11,9 +11,11 @@ function socialShareCopyToClipboard() {
     shareUrlElement.setAttribute("data-hint", "Copied");
 
     // Reference: https://developer.mozilla.org/en-US/docs/Web/Events/mouseover
-    document.getElementById('social-share-copytoclipboard-span').addEventListener("mouseover", function( event ) {
+    document.getElementById('social-share-copytoclipboard-span').addEventListener("mouseleave", function( event ) {
         // change the copyTextToClipboard attributr on mouseover
-        this.setAttribute("data-hint", "Copy To Clipboard");
+        setTimeout(function() {
+            document.getElementById('social-share-copytoclipboard-span')
+                .setAttribute("data-hint", "Copy To Clipboard");
+        }, 300);
     }, false);
 }
-

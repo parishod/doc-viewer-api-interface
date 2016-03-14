@@ -149,12 +149,12 @@ function copyTextToClipboard(textToCopy) {
         console.log('Copying text command was ' + msg);
         //#22 clipboard should change tooltip on copy
         let shareUrlElement = document.getElementById('social-share-copytoclipboard-span');
-        console.log(shareUrlElement.getAttribute("data-hint"));
+        // console.log(shareUrlElement.getAttribute("data-hint"));
         shareUrlElement.setAttribute("data-hint", "Copied");
         //Reference http://webdesign.tutsplus.com/tutorials/copy-to-clipboard-made-easy-with-clipboardjs--cms-25086
         window.setTimeout(function() {
              shareUrlElement.setAttribute("data-hint", "Copy To Clipboard");;
-        }, 500);
+        }, 800);
     } catch (err) {
         console.log('Oops, unable to copy');
     }
@@ -163,6 +163,31 @@ function copyTextToClipboard(textToCopy) {
     document.body.removeChild(textArea);
 }
 
+//Reference: http://stackoverflow.com/a/30810322/3439460 Section: Complex Example: Copy to clipboard without displaying input
+function copyToClipboardByTextId(textElementId) {
+    // console.log('textElementId ', textElementId);//DEBUG
+    
+    try {
+        let copyToClipBoardElement = document.getElementById(textElementId);
+        // console.log('copyToClipBoardElement.value ', copyToClipBoardElement.value);//DEBUG
+        copyToClipBoardElement.setSelectionRange(0, copyToClipBoardElement.value.length);
+        
+        let successful = document.execCommand('copy');
+        let msg = successful ? 'successful' : 'unsuccessful';
+        console.log('Copying text command was ' + msg);
+        //#22 clipboard should change tooltip on copy
+        let shareUrlElement = document.getElementById('social-share-copytoclipboard-span');
+        // console.log(shareUrlElement.getAttribute("data-hint"));
+        shareUrlElement.setAttribute("data-hint", "Copied");
+        //Reference http://webdesign.tutsplus.com/tutorials/copy-to-clipboard-made-easy-with-clipboardjs--cms-25086
+        window.setTimeout(function() {
+             shareUrlElement.setAttribute("data-hint", "Copy To Clipboard");;
+        }, 800);
+    } catch (err) {
+        console.log('Oops, unable to copy');
+    }
+
+}
 
 //======= Functions to Read and Write Cookies ======
 /**

@@ -11,13 +11,10 @@ function getFileTypesSettigsContent(fileType, supportedServicesArr, preferredSer
             return prev+`<option ${(curr === preferredService)? "selected=\"selected\"": ""}>${curr}</option>`;
         }, "");
     const formId = `service-option-${fileType.toLowerCase()}`;
-    let formStatus = (supportedServicesArr.length === 1)
-        ? `disabled`
-        : ``;
     return `<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
             <div class="form-group form-inline text-uppercase">
                 <label for="${formId}" style="padding-right: 8px">${fileType.toUpperCase()}</label>
-                <select class="form-control" id="${formId}" ${formStatus}>
+                <select class="form-control" id="${formId}">
 					${formOptions}
                 </select>
             </div>
@@ -31,8 +28,16 @@ document.getElementById("settings-services-tab-row").onchange=function(){ //run 
     try {
         let jsonFormatData = JSON.parse(decodeURIComponent(localStorage.getItem('viewer-user-pref')));
         let thisUserConfiguration = new AnyFileViewerUserConfig(jsonFormatData);
-        let fileTypeServicesSettingsHtml = thisUserConfiguration.allSupportedFileTypes()
-                
+        let fileTypeServicesSettingsHtml = thisUserConfiguration.allSupportedFileTypes();
+
+        let statusDisplayNode = document.getElementById("services-settings-modal-update-status-message");
+        statusDisplayNode.innerHTML=
+            `
+            <div class="text-warning text-center">
+                <i class="fa fa-spinner fa-pulse"></i> Saving Preferences
+            </div>
+            `;
+
         //console.log("element_name :", fileTypeServicesSettingsHtml); //DEBUG
         let fileTypes;
         for(fileTypes in fileTypeServicesSettingsHtml){
@@ -44,7 +49,6 @@ document.getElementById("settings-services-tab-row").onchange=function(){ //run 
             
                 let fileExtensionOfUrl = fileTypeServicesSettingsHtml[fileTypes];
                 let jsonFormatData = JSON.parse(decodeURIComponent(localStorage.getItem('viewer-user-pref')));
-                let thisUserConfiguration = new AnyFileViewerUserConfig(jsonFormatData);
                 //console.log("localStorage.getItem('viewer-user-pref'):", localStorage.getItem('viewer-user-pref')); //DEBUG
                 let indexPreferredService = jsonFormatData.user_preferences.file_types
                     .findIndex((thisFileTypeObj) => thisFileTypeObj.extension === fileExtensionOfUrl);
@@ -63,8 +67,23 @@ document.getElementById("settings-services-tab-row").onchange=function(){ //run 
                 }
             }
         }
-        //localStorage.setItem('viewer-user-pref', JSON.stringify(jsonFormatData));
+
+        setTimeout(function() {
+            statusDisplayNode.innerHTML=
+            `
+            <div class="text-success text-center">
+                <i class="fa fa-check fa-fw"></i> Preferences saved
+            </div>
+            `;
+        }, 800);
     } catch (err) {
         console.error("getElementById Error: ", err);
     }
-}
+};
+
+// On Settings Modal Closed (Hidden)
+$('#settings-modal').on('hidden.bs.modal', function () {
+    // Ref: http://stackoverflow.com/a/8364113/3439460
+    document.getElementById("services-settings-modal-update-status-message")
+        .innerHTML = "<br/>";
+});

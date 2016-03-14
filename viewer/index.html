@@ -167,13 +167,17 @@
                         </div>
                         <div class="row" id="settings-services-tab-row">
                         </div>
+                        <!-- View "Options saved" kind of messages when user changes user preferences -->
+                        <div id="services-settings-modal-update-status-message">
+                            <br/>
+                        </div>
                     </div>
                     <div class="tab-pane" id="modal-settings-tab-advanced">
                         <h3>Not implemented yet</h3>
                         <ul>
                             <li>Reset user preferences</li>
                         </ul>
-                    </div> 
+                    </div>
                 </div>
 			</div>
 		  </div><!-- /.modal-content -->
@@ -186,6 +190,10 @@
 
     <!-- Base hint.css. CSS Tooltip library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.0.0/hint.base.min.css">
+
+    <!-- Loading Jquery. Required for modal template code -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <!-- Loading Fontawesome icons -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -207,10 +215,6 @@
 	<!-- To Launch the iframe for the doc trying to open -->
 	<script src="../libs/doc-viewer-utils.js"></script>
 	<script src="../js/main.js"></script>
-
-	<!-- Loading Jquery. Required for modal template code -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <!-- build:js modernizr.touch.js -->
     <script src="../libs/dist/lib/modernizr.touch.js"></script>

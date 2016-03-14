@@ -82,3 +82,9 @@ document.getElementById("settings-services-tab-row").onchange=function(){ //run 
         console.error("getElementById Error: ", err);
     }
 }
+
+// On Settings Modal Closed (Hidden)
+$('#settings-modal').on('hidden.bs.modal', function () {
+    document.getElementById("services-settings-modal-update-status-message")
+        .innerHTML = "<br/>";
+});

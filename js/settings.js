@@ -106,7 +106,7 @@ function resetUserPreferences(){
         `;
     loadFile("../config/config.json", "json").then(function (defaultConfigData) {
         try {
-            let jsonFormatData = JSON.parse(decodeURIComponent(localStorage.getItem('viewer-user-pref')));
+            /*let jsonFormatData = JSON.parse(decodeURIComponent(localStorage.getItem('viewer-user-pref')));
             
             // let fileTypes;
             //console.log("Reset user prefs Extension : ",defaultConfigData.user_preferences.file_types.length)//DEBUG
@@ -123,8 +123,8 @@ function resetUserPreferences(){
                     jsonFormatData.user_preferences.file_types[indexPreferredService].preferred_service = defaultConfigData.user_preferences.file_types[i].preferred_service
                     // localStorage.setItem('viewer-user-pref', JSON.stringify(jsonFormatData));
                 }
-            }
-            localStorage.setItem('viewer-user-pref', JSON.stringify(jsonFormatData));
+            }*/
+            localStorage.setItem('viewer-user-pref', JSON.stringify(defaultConfigData));
             setTimeout(function() {
                 statusDisplayNode.innerHTML=
                 `

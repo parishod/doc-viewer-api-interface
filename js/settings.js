@@ -4,6 +4,8 @@
  */
 "use strict";
 
+let settingsModalPrevUserConfig = {};
+
 function getFileTypesSettigsContent(fileType, supportedServicesArr, preferredService){
     fileType=fileType.trim();
     let formOptions = supportedServicesArr
@@ -81,9 +83,20 @@ document.getElementById("settings-services-tab-row").onchange=function(){ //run 
     }
 };
 
-// On Settings Modal Closed (Hidden)
-$('#settings-modal').on('hidden.bs.modal', function () {
+// On Settings Modal Opened
+$('#settings-modal').on('show.bs.modal', function () {
+    settingsModalPrevUserConfig = JSON.parse(decodeURIComponent(localStorage.getItem('viewer-user-pref')));
+});
+
+// On Settings Modal Closed (Hide)
+$('#settings-modal').on('hide.bs.modal', function () {
     // Ref: http://stackoverflow.com/a/8364113/3439460
     document.getElementById("services-settings-modal-update-status-message")
         .innerHTML = "<br/>";
+
+    let presentUserConfig = JSON.parse(decodeURIComponent(localStorage.getItem('viewer-user-pref')));
+    if(!deepCompareObj(presentUserConfig, settingsModalPrevUserConfig)) {
+        // Ask user to restart page if user preferences changed.
+        // TBD
+    }
 });

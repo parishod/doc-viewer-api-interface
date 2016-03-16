@@ -23,6 +23,9 @@ function getFileTypesSettigsContent(fileType, supportedServicesArr, preferredSer
         </div>`;
 }
 
+/**
+ * Listener to handle the user preference onchange event
+ */
 // let settingsServicesElement = document.getElementById("settings-services-tab-row");
 //Reference: http://www.javascriptkit.com/jsref/select.shtml , Events
 document.getElementById("settings-services-tab-row").onchange=function(){ //run some code when "onchange" event fires
@@ -87,6 +90,56 @@ document.getElementById("settings-services-tab-row").onchange=function(){ //run 
 $('#settings-modal').on('show.bs.modal', function () {
     settingsModalPrevUserConfig = JSON.parse(decodeURIComponent(localStorage.getItem('viewer-user-pref')));
 });
+
+
+/**
+ * resetUserPreferences: Resets the user preferences with defaults
+ */
+function resetUserPreferences(){
+    //TBD Alert User of restoring all values to defaults
+    let statusDisplayNode = document.getElementById("services-settings-modal-advanced-update-status-message");
+    statusDisplayNode.innerHTML=
+        `
+        <div class="text-warning text-center">
+            <i class="fa fa-spinner fa-pulse"></i> Resetting Preferences
+        </div>
+        `;
+    loadFile("../config/config.json", "json").then(function (defaultConfigData) {
+        try {
+            let jsonFormatData = JSON.parse(decodeURIComponent(localStorage.getItem('viewer-user-pref')));
+            
+            // let fileTypes;
+            //console.log("Reset user prefs Extension : ",defaultConfigData.user_preferences.file_types.length)//DEBUG
+            for(let i = 0; i < defaultConfigData.user_preferences.file_types.length; i++){
+            // for(fileTypes in defaultConfigData.user_preferences.file_types.length){
+                let fileType = defaultConfigData.user_preferences.file_types[i].extension
+                // console.log("Reset user prefs Extension : ", fileType);//DEBUG
+                // defaultConfigData.user_preferences.file_types[fileTypes].preferred_service;
+                let indexPreferredService = jsonFormatData.user_preferences.file_types
+                    .findIndex((thisFileTypeObj) => thisFileTypeObj.extension === fileType);
+                
+                console.log("resetUserPreferences indexPreferredService :", indexPreferredService); //DEBUG
+                if(indexPreferredService !== -1) {
+                    jsonFormatData.user_preferences.file_types[indexPreferredService].preferred_service = defaultConfigData.user_preferences.file_types[i].preferred_service
+                    // localStorage.setItem('viewer-user-pref', JSON.stringify(jsonFormatData));
+                }
+            }
+            localStorage.setItem('viewer-user-pref', JSON.stringify(jsonFormatData));
+            setTimeout(function() {
+                statusDisplayNode.innerHTML=
+                `
+                <div class="text-success text-center">
+                    <i class="fa fa-check fa-fw"></i> Settings restored to defaults
+                </div>
+                `;
+            }, 800);
+        } catch (err) {
+            console.error("Error in Reset UserPreferences : ", err);
+        }
+    }, function (Error) {
+        console.error(Error);
+    });
+}
 
 // On Settings Modal Closed (Hide)
 $('#settings-modal').on('hide.bs.modal', function () {

@@ -167,6 +167,7 @@ function copyTextToClipboard(textToCopy) {
 function copyToClipboardByTextId(textElementId) {
     try {
         let copyToClipBoardElement = document.getElementById(textElementId);
+        copyToClipBoardElement.focus();
         copyToClipBoardElement.setSelectionRange(0, copyToClipBoardElement.value.length);
         
         let copyStatus = document.execCommand('copy');

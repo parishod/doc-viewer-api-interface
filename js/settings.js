@@ -133,6 +133,22 @@ function resetUserPreferences(){
     });
 }
 
+//Reference: http://www.tutorialspoint.com/javascript/javascript_dialog_boxes.htm
+//Unused function
+function getResetUserPreferencesConfirmation(){
+    var retVal = confirm("Do you want to continue ?");
+    if( retVal == true ){
+      console.log("User wants to continue!");
+      resetUserPreferences()
+      // return true;
+    }
+    else{
+      console.log("User does not want to continue!");
+      // return false;
+    }
+}
+
+
 // On Settings Modal Closed (Hidden)
 $('#settings-modal').on('hidden.bs.modal', function () {
     // Ref: http://stackoverflow.com/a/8364113/3439460

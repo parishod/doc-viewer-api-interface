@@ -176,7 +176,10 @@
                     </div>
                     <div class="tab-pane" id="modal-settings-tab-advanced">
                         <h6>Restore settings to their original defaults.</h6>
-                        <a href="#" class="btn btn-default" role="button" onclick="resetUserPreferences();">Reset Settings</a>
+                        <a id="reset-settings-menu-id" data-toggle="modal" data-target="#reset-settings-modal"
+                           data-mfb-label="Share" class="btn btn-default" role="button" >Reset Settings
+                        </a>
+                        
                         <!-- View "Options saved" kind of messages when user changes user preferences -->
                         <div id="services-settings-modal-advanced-update-status-message">
                             <br/>
@@ -188,7 +191,36 @@
 	   </div><!-- /.modal-dialog -->
 	  
 	</div><!-- End Settings Modal -->
-        
+    
+    <!-- Reset User Preference Confirmation Modal -->
+	<div class="modal fade" id="reset-settings-modal" tabindex="-1" role="dialog"
+	   aria-labelledby="myModalLabel" aria-hidden="true">
+
+	   <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+
+                    <h4 class="modal-title text-center">
+                        Reset settings alert
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <h6 class="modal-title text-center">
+                        Are you sure you want to continue?
+                    </h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary btn-ok" onclick="resetUserPreferences();" data-dismiss="modal">OK</a>
+                </div>
+            </div><!-- /.modal-Content -->
+	   </div><!-- /.modal-dialog -->
+
+	</div><!-- End Social Share Modal -->
+    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../css/styles.css">
 

@@ -18,7 +18,21 @@ function loadUrlInIframeById(iframeUrl, elementId) {
     elementToAttachIFrame.parentNode.insertBefore(ifrm, elementToAttachIFrame);
 }
 
+function addDataToSettingsMenu(thisUserConfiguration){
+    // Fill FileType service settings
+    let fileTypeServicesSettingsHtml = thisUserConfiguration.allSupportedFileTypes()
+        .reduce((prevFileType, currFileType) => {
+            let supportedServices = thisUserConfiguration.supportedServiceIdsByFileType(currFileType);
+            let preferredService = thisUserConfiguration.getPreferredServiceIdByFileType(currFileType);
 
+            return (supportedServices.length > 1)
+                ? prevFileType.concat(getFileTypesSettigsContent(currFileType, supportedServices, preferredService))
+                : prevFileType;
+        },"");
+    //console.log("fileTypeServicesSettingsHtml", fileTypeServicesSettingsHtml);
+    document.getElementById("settings-services-tab-row").innerHTML=fileTypeServicesSettingsHtml;
+
+}
 // Loading json file data
 loadFile("../config/config.json", "json").then(function (defaultConfigData) {
     let givenFileUrl = decodeURIComponent(getUrlParameterByName("url", document.location.href));
@@ -90,18 +104,8 @@ loadFile("../config/config.json", "json").then(function (defaultConfigData) {
             throw `iframe URL is ${iframeUrl}`;
         }
         // Fill FileType service settings
-        let fileTypeServicesSettingsHtml = thisUserConfiguration.allSupportedFileTypes()
-            .reduce((prevFileType, currFileType) => {
-                let supportedServices = thisUserConfiguration.supportedServiceIdsByFileType(currFileType);
-                let preferredService = thisUserConfiguration.getPreferredServiceIdByFileType(currFileType);
-
-                return (supportedServices.length > 1)
-                    ? prevFileType.concat(getFileTypesSettigsContent(currFileType, supportedServices, preferredService))
-                    : prevFileType;
-            },"");
-        //console.log("fileTypeServicesSettingsHtml", fileTypeServicesSettingsHtml);
-        document.getElementById("settings-services-tab-row").innerHTML=fileTypeServicesSettingsHtml;
-
+        addDataToSettingsMenu(thisUserConfiguration);
+        
         // Implements the Hide Hobsons button in settings
         // Toggles hiding file types with only single service in the settings menu
         let hideHobsonsCheckbox = document.getElementById("hide-hobsons-checkbox-services-settings");

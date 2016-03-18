@@ -115,6 +115,10 @@ function resetUserPreferences(){
                 </div>
                 `;
         }, 800);
+        
+        // Reload settings menu data
+        let thisUserConfiguration = new AnyFileViewerUserConfig(defaultConfigData);
+        addDataToSettingsMenu(thisUserConfiguration);
     }, function (Error) {
         console.error(Error);
     });

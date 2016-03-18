@@ -105,37 +105,16 @@ function resetUserPreferences(){
         </div>
         `;
     loadFile("../config/config.json", "json").then(function (defaultConfigData) {
-        try {
-            /*let jsonFormatData = JSON.parse(decodeURIComponent(localStorage.getItem('viewer-user-pref')));
-            
-            // let fileTypes;
-            //console.log("Reset user prefs Extension : ",defaultConfigData.user_preferences.file_types.length)//DEBUG
-            for(let i = 0; i < defaultConfigData.user_preferences.file_types.length; i++){
-            // for(fileTypes in defaultConfigData.user_preferences.file_types.length){
-                let fileType = defaultConfigData.user_preferences.file_types[i].extension
-                // console.log("Reset user prefs Extension : ", fileType);//DEBUG
-                // defaultConfigData.user_preferences.file_types[fileTypes].preferred_service;
-                let indexPreferredService = jsonFormatData.user_preferences.file_types
-                    .findIndex((thisFileTypeObj) => thisFileTypeObj.extension === fileType);
-                
-                console.log("resetUserPreferences indexPreferredService :", indexPreferredService); //DEBUG
-                if(indexPreferredService !== -1) {
-                    jsonFormatData.user_preferences.file_types[indexPreferredService].preferred_service = defaultConfigData.user_preferences.file_types[i].preferred_service
-                    // localStorage.setItem('viewer-user-pref', JSON.stringify(jsonFormatData));
-                }
-            }*/
-            localStorage.setItem('viewer-user-pref', JSON.stringify(defaultConfigData));
-            setTimeout(function() {
-                statusDisplayNode.innerHTML=
+
+        localStorage.setItem('viewer-user-pref', JSON.stringify(defaultConfigData));
+        setTimeout(function() {
+            statusDisplayNode.innerHTML=
                 `
                 <div class="text-success text-center">
                     <i class="fa fa-check fa-fw"></i> Settings restored to defaults
                 </div>
                 `;
-            }, 800);
-        } catch (err) {
-            console.error("Error in Reset UserPreferences : ", err);
-        }
+        }, 800);
     }, function (Error) {
         console.error(Error);
     });

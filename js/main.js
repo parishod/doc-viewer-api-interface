@@ -18,8 +18,7 @@ function loadUrlInIframeById(iframeUrl, elementId) {
     elementToAttachIFrame.parentNode.insertBefore(ifrm, elementToAttachIFrame);
 }
 
-function addDataToSettingsMenu(thisUserConfiguration){
-    // Fill FileType service settings
+function getServicesForInlineHtml(thisUserConfiguration){
     let fileTypeServicesSettingsHtml = thisUserConfiguration.allSupportedFileTypes()
         .reduce((prevFileType, currFileType) => {
             let supportedServices = thisUserConfiguration.supportedServiceIdsByFileType(currFileType);
@@ -29,6 +28,12 @@ function addDataToSettingsMenu(thisUserConfiguration){
                 ? prevFileType.concat(getFileTypesSettigsContent(currFileType, supportedServices, preferredService))
                 : prevFileType;
         },"");
+    return fileTypeServicesSettingsHtml;
+}
+
+function addDataToSettingsMenu(thisUserConfiguration){
+    // Fill FileType service settings
+    let fileTypeServicesSettingsHtml = getServicesForInlineHtml(thisUserConfiguration);
     //console.log("fileTypeServicesSettingsHtml", fileTypeServicesSettingsHtml);
     document.getElementById("settings-services-tab-row").innerHTML=fileTypeServicesSettingsHtml;
 
@@ -111,15 +116,7 @@ loadFile("../config/config.json", "json").then(function (defaultConfigData) {
         let hideHobsonsCheckbox = document.getElementById("hide-hobsons-checkbox-services-settings");
         hideHobsonsCheckbox.addEventListener("change", () => {
             document.getElementById("settings-services-tab-row").innerHTML =
-                thisUserConfiguration.allSupportedFileTypes()
-                    .reduce((prevFileType, currFileType) => {
-                        let supportedServices = thisUserConfiguration.supportedServiceIdsByFileType(currFileType);
-                        let preferredService = thisUserConfiguration.getPreferredServiceIdByFileType(currFileType);
-
-                        return (supportedServices.length > 1 || !hideHobsonsCheckbox.checked)
-                            ? prevFileType.concat(getFileTypesSettigsContent(currFileType, supportedServices, preferredService))
-                            : prevFileType;
-                    },"");
+                getServicesForInlineHtml(thisUserConfiguration);
         });
     } catch (err) {
         console.error("Error in promise generating iframe URL: ", err);
